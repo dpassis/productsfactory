@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="alunosCurso" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="267b1dd4-c077-4ed0-be5f-621ac37c76ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="7"/>
+	<parameter name="logo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT tb_aluno.nome_aluno, tb_cursos.descricao_curso,tb_sala.descricao_sala,tb_funcionario.nome_funcionario,
+tb_aula.dia_semana,tb_aula.horario_inicio,tb_aula.horario_fim
+FROM tb_aluno_curso 
+INNER JOIN tb_aluno ON (tb_aluno.matricula = tb_aluno_curso.pk_aluno_curso) 
+INNER JOIN (tb_aula INNER JOIN tb_cursos ON (tb_cursos.codigo_curso = tb_aula.fk_curso_aula))
+INNER JOIN tb_sala ON (tb_sala.codigo_sala = tb_aula.fk_sala)
+INNER JOIN tb_funcionario ON(tb_funcionario.codigo_funcionario = tb_aula.fk_professor)
+ON (tb_aluno_curso.pk_aluno_aula = tb_aula.codigo_aula)  
+WHERE tb_aluno.status_aluno = 'Ativo' AND tb_aluno_curso.situacao = 'Cursando'
+ORDER BY 	tb_cursos.descricao_curso, tb_aluno.nome_aluno]]>
+	</queryString>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="descricao_curso" class="java.lang.String"/>
+	<field name="descricao_sala" class="java.lang.String"/>
+	<field name="nome_funcionario" class="java.lang.String"/>
+	<field name="dia_semana" class="java.lang.String"/>
+	<field name="horario_inicio" class="java.sql.Time"/>
+	<field name="horario_fim" class="java.sql.Time"/>
+	<variable name="descricao_curso_1" class="java.lang.Integer" resetType="Group" resetGroup="Cursos" calculation="Count">
+		<variableExpression><![CDATA[$F{descricao_curso}]]></variableExpression>
+	</variable>
+	<group name="Cursos">
+		<groupExpression><![CDATA[$F{descricao_curso}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="0" y="30" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome Aluno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="171" y="30" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Professor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="302" y="30" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sala]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="423" y="30" width="29" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dia ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="da8874bf-3fb9-449c-8b1e-be66c729cade" x="0" y="0" width="271" height="20"/>
+					<textElement>
+						<font size="15" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descricao_curso}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="ba28a6cc-2328-4e2d-a210-006d583d01ce" x="-1" y="26" width="555" height="1"/>
+				</line>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="484" y="28" width="53" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horário]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="400" y="20" width="110" height="27" forecolor="#0033FF"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de Alunos :]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="738d22b1-febd-48c2-a764-a5f7f579a68d" x="510" y="20" width="44" height="20"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{descricao_curso_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ccb52a60-4491-4cd7-8e6b-a92b2199ad96" x="0" y="0" width="555" height="79"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="952c9ecc-3e95-4c39-af3d-484dfa4eb229" x="271" y="25" width="284" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Rua Sebastião da Silva Leite, 858 - Centro - Assis - SP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12a0225c-49bd-43a8-9af3-7383c268529e" x="310" y="7" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficina da Música - Instituto Musical]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95f33ae7-7192-4eae-b044-c7fd97bd14b8" x="310" y="45" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[CEP.: 19814-370 - Tel.: (18) 3324-9333]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="87e39049-5ef1-44d9-8f86-4be8c5081443" x="18" y="7" width="114" height="61"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0f14ce60-d1fe-4f85-a252-0678cdfcbf6f" x="0" y="0" width="555" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alunos por Curso]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="e4203753-76e7-4907-94a0-f25c6c87a448" x="0" y="0" width="161" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9ab76eef-5c8d-4549-80ec-538c164ffc9a" x="302" y="0" width="122" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descricao_sala}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3bb00f66-4863-40ec-a764-c223b66d3518" x="171" y="0" width="131" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome_funcionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8267312a-5ac3-442d-856a-8be1e2c7d4eb" x="424" y="1" width="46" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{dia_semana}.equals("1") ? "Segunda" : $F{dia_semana}.equals("2") ? "Terça" :$F{dia_semana}.equals("3") ? "Quarta" :$F{dia_semana}.equals("4") ? "Quinta" :$F{dia_semana}.equals("5") ? "Sexta" :$F{dia_semana}.equals("6") ? "Sábado" :$F{dia_semana}.equals("7") ? "Domingo":"")]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement uuid="ff9c2395-ef02-4062-b083-7aa3a9d3b66f" x="470" y="0" width="29" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{horario_inicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement uuid="6b97c185-8df0-483f-afbd-030bcd3b134c" x="517" y="0" width="35" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{horario_fim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="499" y="-1" width="19" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8cc92b96-f3a9-406d-9f0c-6fef8333b51b" x="432" y="5" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="26ca3516-3ff8-4fbc-95cb-88de025a7b97" x="512" y="5" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b5dec3ad-ccc7-455e-bd7a-2844a2748d31" x="18" y="10" width="193" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch"/>
+	</summary>
+</jasperReport>

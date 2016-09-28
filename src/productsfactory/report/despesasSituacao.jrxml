@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="despesasSituacao" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="267b1dd4-c077-4ed0-be5f-621ac37c76ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="c4aa5573-855a-4c11-aaa7-55550fd92a91"/>
+	<parameter name="logo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     to_char(data_gastos,'DD/MM/YYYY'),
+     tb_gastos."descricao_gastos",
+     tb_gastos."situacao",
+     tb_gastos."valor_gastos", 
+tb_gastos.categoria_gastos
+FROM
+     "tb_gastos" tb_gastos
+WHERE
+     tb_gastos.data_gastos BETWEEN $P{dataInicio} and $P{dataFim}
+ORDER BY
+     tb_gastos.data_gastos ASC,
+     tb_gastos.descricao_gastos ASC]]>
+	</queryString>
+	<field name="to_char" class="java.lang.String"/>
+	<field name="descricao_gastos" class="java.lang.String"/>
+	<field name="situacao" class="java.lang.String"/>
+	<field name="valor_gastos" class="java.math.BigDecimal"/>
+	<field name="categoria_gastos" class="java.lang.String"/>
+	<variable name="somaDespesas" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_gastos}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="somaParcial" class="java.math.BigDecimal" resetType="Group" resetGroup="Categoria" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_gastos}]]></variableExpression>
+	</variable>
+	<group name="Categoria">
+		<groupExpression><![CDATA[$F{situacao}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="0" y="30" width="132" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="197" y="30" width="28" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="310" y="30" width="61" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Categoria]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="470" y="30" width="38" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="ba28a6cc-2328-4e2d-a210-006d583d01ce" x="0" y="24" width="555" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="3d653fcc-7331-4bc8-92e4-cbc52a81bbbb" x="0" y="0" width="147" height="20"/>
+					<textElement>
+						<font size="15" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{situacao}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="27">
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="8555f991-c573-4cc1-9313-7c4ea2bbbe38" x="474" y="2" width="58" height="20"/>
+					<textElement textAlignment="Right">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{somaParcial}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="403" y="3" width="70" height="17" forecolor="#0033FF"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SubTotal :]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ccb52a60-4491-4cd7-8e6b-a92b2199ad96" x="0" y="0" width="555" height="79"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="952c9ecc-3e95-4c39-af3d-484dfa4eb229" x="271" y="25" width="284" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Rua Sebastião da Silva Leite, 858 - Centro - Assis - SP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12a0225c-49bd-43a8-9af3-7383c268529e" x="310" y="7" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficina da Música - Instituto Musical]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95f33ae7-7192-4eae-b044-c7fd97bd14b8" x="310" y="45" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[CEP.: 19814-370 - Tel.: (18) 3324-9333]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="87e39049-5ef1-44d9-8f86-4be8c5081443" x="18" y="7" width="114" height="61"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0f14ce60-d1fe-4f85-a252-0678cdfcbf6f" x="0" y="0" width="555" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Despesas Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0feb5c1c-1b69-4b79-99f8-2958f8175e68" x="326" y="42" width="15" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="da8b8ac9-6efd-4e63-8fd9-8dc8c865d78e" x="226" y="42" width="100" height="20" forecolor="#3333FF"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c2e5e8bc-4545-44e2-8bbd-e5e787447c0b" x="341" y="42" width="100" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8002495e-1bfb-4775-bbc0-74a8b294f492" x="171" y="42" width="55" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="467cc29d-8270-45dc-b87a-bb930f1693d2" x="0" y="3" width="181" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descricao_gastos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1d0dbbd8-7861-4721-be03-a4ad58cde89b" x="310" y="0" width="113" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{categoria_gastos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="96064ae5-005b-40bf-8c4a-58e0a6400b0d" x="452" y="3" width="49" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valor_gastos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="467cc29d-8270-45dc-b87a-bb930f1693d2" x="197" y="0" width="76" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{to_char}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8cc92b96-f3a9-406d-9f0c-6fef8333b51b" x="432" y="5" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="26ca3516-3ff8-4fbc-95cb-88de025a7b97" x="512" y="5" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b5dec3ad-ccc7-455e-bd7a-2844a2748d31" x="18" y="10" width="193" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="7dce1f22-910f-4cff-b63e-b68c644d6bee" x="489" y="7" width="63" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{somaDespesas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="441" y="7" width="47" height="27" forecolor="#0033FF"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="ba28a6cc-2328-4e2d-a210-006d583d01ce" x="1" y="2" width="555" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

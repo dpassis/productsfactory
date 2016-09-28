@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="alunosIniciantesCurso" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="267b1dd4-c077-4ed0-be5f-621ac37c76ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="37"/>
+	<parameter name="logo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataInicio" class="java.util.Date"/>
+	<parameter name="dataFim" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT tb_aluno.nome_aluno, tb_cursos.descricao_curso,tb_funcionario.nome_funcionario
+FROM tb_aluno_curso 
+INNER JOIN tb_aluno ON (tb_aluno.matricula = tb_aluno_curso.pk_aluno_curso) 
+INNER JOIN tb_receita ON (tb_receita.codigo_receita = tb_aluno_curso.fk_receita_aluno)
+INNER JOIN (tb_aula INNER JOIN tb_cursos ON (tb_cursos.codigo_curso = tb_aula.fk_curso_aula))
+INNER JOIN tb_funcionario ON(tb_funcionario.codigo_funcionario = tb_aula.fk_professor)
+ON (tb_aluno_curso.pk_aluno_aula = tb_aula.codigo_aula)  
+WHERE  tb_aluno_curso.data_inicio BETWEEN $P{dataInicio} AND $P{dataFim}
+AND tb_aluno.status_aluno = 'Ativo' AND tb_aluno_curso.situacao = 'Cursando' 
+ORDER BY 	tb_aluno.nome_aluno;]]>
+	</queryString>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="descricao_curso" class="java.lang.String"/>
+	<field name="nome_funcionario" class="java.lang.String"/>
+	<variable name="descricao_curso_1" class="java.lang.Integer" resetType="Group" resetGroup="Iniciantes por Curso" calculation="Count">
+		<variableExpression><![CDATA[$F{descricao_curso}]]></variableExpression>
+	</variable>
+	<group name="Iniciantes por Curso">
+		<groupExpression><![CDATA[$F{descricao_curso}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="3" y="30" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome Aluno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="202" y="30" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Professor]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="354cd695-e697-4b8b-87fb-e478e62a9757" x="3" y="0" width="187" height="20"/>
+					<textElement>
+						<font size="15" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descricao_curso}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="387" y="23" width="106" height="27" forecolor="#0033FF"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total por Curso :]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="a5b9631b-e00f-43ac-b852-96444f5aa3ed" x="494" y="24" width="61" height="20"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{descricao_curso_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="ba28a6cc-2328-4e2d-a210-006d583d01ce" x="19" y="48" width="509" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ccb52a60-4491-4cd7-8e6b-a92b2199ad96" x="0" y="0" width="555" height="79"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="952c9ecc-3e95-4c39-af3d-484dfa4eb229" x="271" y="25" width="284" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Rua Sebastião da Silva Leite, 858 - Centro - Assis - SP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12a0225c-49bd-43a8-9af3-7383c268529e" x="310" y="7" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficina da Música - Instituto Musical]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95f33ae7-7192-4eae-b044-c7fd97bd14b8" x="310" y="45" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[CEP.: 19814-370 - Tel.: (18) 3324-9333]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="87e39049-5ef1-44d9-8f86-4be8c5081443" x="18" y="7" width="114" height="61"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0f14ce60-d1fe-4f85-a252-0678cdfcbf6f" x="0" y="0" width="555" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alunos Iniciantes por Curso]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="da8b8ac9-6efd-4e63-8fd9-8dc8c865d78e" x="194" y="40" width="97" height="20" forecolor="#3333FF"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataInicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8002495e-1bfb-4775-bbc0-74a8b294f492" x="136" y="40" width="58" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c2e5e8bc-4545-44e2-8bbd-e5e787447c0b" x="306" y="40" width="100" height="20" forecolor="#3333FF"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0feb5c1c-1b69-4b79-99f8-2958f8175e68" x="291" y="40" width="15" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="e4203753-76e7-4907-94a0-f25c6c87a448" x="0" y="0" width="190" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d7631a34-486a-4033-b51d-d17a19bc9b04" x="202" y="2" width="200" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome_funcionario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="ba28a6cc-2328-4e2d-a210-006d583d01ce" x="1" y="-28" width="552" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8cc92b96-f3a9-406d-9f0c-6fef8333b51b" x="432" y="5" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="26ca3516-3ff8-4fbc-95cb-88de025a7b97" x="512" y="5" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b5dec3ad-ccc7-455e-bd7a-2844a2748d31" x="18" y="10" width="193" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="310" y="15" width="174" height="27" forecolor="#0033FF"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Alunos Iniciantes:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a9e5c7f6-673a-4157-80cc-90bd6931236e" x="484" y="15" width="68" height="27"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+X-COMMENT: Main-Class will be added automatically by build
+Permissions: all-permissions 
+Codebase: http://localhost:8080/oficina
+Application-Name: Sistema_Oficina_da_Musica
+Application-Library-Allowable-Codebase: http://localhost:8080

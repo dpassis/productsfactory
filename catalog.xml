@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://webservice.grepcep.com/GrepCepWS/services/GrepCep?wsdl" uri="xml-resources/web-service-references/GrepCep/wsdl/webservice.grepcep.com/GrepCepWS/services/GrepCep.wsdl"/>
+</catalog>

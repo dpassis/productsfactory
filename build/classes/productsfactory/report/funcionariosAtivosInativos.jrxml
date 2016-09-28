@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="funcionariosAtivosInativos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="267b1dd4-c077-4ed0-be5f-621ac37c76ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="status" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_funcionario.nome_funcionario,
+     tb_funcionario.fone,
+     tb_funcionario.celular,
+     tb_funcionario.email,
+     tb_cargo.descricao_cargo
+FROM
+      tb_funcionario INNER JOIN tb_cargo ON (tb_funcionario.fk_cargo = tb_cargo.codigo_cargo)
+WHERE
+     tb_funcionario.status_funcionario = $P{status}
+ORDER BY tb_cargo.descricao_cargo,tb_funcionario.nome_funcionario]]>
+	</queryString>
+	<field name="nome_funcionario" class="java.lang.String"/>
+	<field name="fone" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="descricao_cargo" class="java.lang.String"/>
+	<variable name="descricao_cargo_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{descricao_cargo}]]></variableExpression>
+	</variable>
+	<variable name="descricao_cargo_2" class="java.lang.Integer" resetType="Group" resetGroup="Cargo" calculation="Count">
+		<variableExpression><![CDATA[$F{descricao_cargo}]]></variableExpression>
+	</variable>
+	<group name="Cargo">
+		<groupExpression><![CDATA[$F{descricao_cargo}]]></groupExpression>
+		<groupHeader>
+			<band height="46">
+				<textField>
+					<reportElement uuid="0567fecc-b25e-469a-b7be-74d6df62ca16" x="0" y="0" width="196" height="20"/>
+					<textElement>
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descricao_cargo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="0" y="25" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome Funcionário]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="171" y="25" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Telefone]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="283" y="25" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Celular]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="393" y="25" width="100" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Email]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="ba28a6cc-2328-4e2d-a210-006d583d01ce" x="1" y="22" width="555" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<staticText>
+					<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="436" y="0" width="40" height="27" forecolor="#0033FF"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total :]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="a3b7490e-c5d4-4ee1-8cd5-921df4aad5a2" x="477" y="0" width="37" height="20"/>
+					<textElement>
+						<font size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{descricao_cargo_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ccb52a60-4491-4cd7-8e6b-a92b2199ad96" x="0" y="0" width="555" height="79"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="952c9ecc-3e95-4c39-af3d-484dfa4eb229" x="271" y="25" width="284" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Rua Sebastião da Silva Leite, 858 - Centro - Assis - SP ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12a0225c-49bd-43a8-9af3-7383c268529e" x="310" y="7" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficina da Música - Instituto Musical]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95f33ae7-7192-4eae-b044-c7fd97bd14b8" x="310" y="45" width="218" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[CEP.: 19814-370 - Tel.: (18) 3324-9333]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="87e39049-5ef1-44d9-8f86-4be8c5081443" x="10" y="10" width="114" height="61"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0f14ce60-d1fe-4f85-a252-0678cdfcbf6f" x="0" y="0" width="555" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[          Funcionários Ativos/Inativos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="08ad7efb-6ff5-4e11-b71e-11101d6e04b9" x="407" y="14" width="44" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6cc5cd29-4b51-4978-94b2-685ac7d15652" x="451" y="14" width="100" height="20" forecolor="#0033FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement uuid="e4203753-76e7-4907-94a0-f25c6c87a448" x="0" y="0" width="161" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome_funcionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e4203753-76e7-4907-94a0-f25c6c87a448" x="171" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e4203753-76e7-4907-94a0-f25c6c87a448" x="283" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e4203753-76e7-4907-94a0-f25c6c87a448" x="393" y="0" width="158" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8cc92b96-f3a9-406d-9f0c-6fef8333b51b" x="432" y="5" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="26ca3516-3ff8-4fbc-95cb-88de025a7b97" x="512" y="5" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b5dec3ad-ccc7-455e-bd7a-2844a2748d31" x="18" y="10" width="193" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5bbfd7ab-0bd3-469f-b636-566eb75e91e0" x="360" y="0" width="148" height="27" forecolor="#0033FF"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Funcionários :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a9e5c7f6-673a-4157-80cc-90bd6931236e" x="508" y="0" width="44" height="27"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contratoAluno" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="267b1dd4-c077-4ed0-be5f-621ac37c76ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="204"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="logo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subPagina2" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Netbeans Project 2013\\SistemaOficinaMusica\\src\\sistemaoficinamusica\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="valorMensalidade" class="java.lang.String"/>
+	<parameter name="valorMensalidadeTexto" class="java.lang.String"/>
+	<parameter name="valorCurso" class="java.lang.String"/>
+	<parameter name="valorCursoTexto" class="java.lang.String"/>
+	<parameter name="valorMulta" class="java.lang.String"/>
+	<parameter name="valorMultaTexto" class="java.lang.String"/>
+	<parameter name="diaVencimento" class="java.lang.String"/>
+	<parameter name="diaVencimentoTexto" class="java.lang.String"/>
+	<parameter name="qtdeParcelas" class="java.lang.String"/>
+	<parameter name="qtdeParcelasTexto" class="java.lang.String"/>
+	<parameter name="codigoAluno" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT tb_aluno.nome_aluno, tb_aluno.fone,tb_aluno.celular,tb_aluno.email, tb_aluno.rua, tb_aluno.numero,
+tb_aluno.bairro,tb_aluno.cidade,tb_aluno.estado, tb_aluno.cep,tb_aluno.cpf, tb_aluno.rg, to_char(tb_aluno.nascimento,'dd/mm/yyyy')
+FROM tb_aluno where tb_aluno.matricula = $P{codigoAluno}]]>
+	</queryString>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="fone" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="rua" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="bairro" class="java.lang.String"/>
+	<field name="cidade" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="cep" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="rg" class="java.lang.String"/>
+	<field name="to_char" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="1f05e2ea-b4eb-49e9-b14d-36b027fec42e" x="-14" y="759" width="555" height="40"/>
+				<subreportParameter name="codigoAluno">
+					<subreportParameterExpression><![CDATA[$P{codigoAluno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{subPagina2}]]></subreportExpression>
+			</subreport>
+			<elementGroup>
+				<frame>
+					<reportElement uuid="838f76f5-0a67-4684-b3dc-103c8dc81b98" x="0" y="131" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="00cc539d-385a-4934-8ce2-69ea4e51b3ff" x="1" y="0" width="60" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Endereço:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement uuid="00cc539d-385a-4934-8ce2-69ea4e51b3ff" x="408" y="0" width="32" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Nº:]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="5acf8e8e-ff10-4df3-86a9-7ab71f5b86c3" x="61" y="0" width="335" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rua}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement uuid="c3cbc1a4-effc-40e9-8f38-4c5bd8b2a3b5" x="441" y="0" width="100" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="90" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="ff381879-da62-465e-b519-b48718497ede" x="0" y="0" width="555" height="20"/>
+						<box>
+							<pen lineWidth="0.25"/>
+							<topPen lineWidth="0.25"/>
+							<leftPen lineWidth="0.25"/>
+							<bottomPen lineWidth="0.25"/>
+							<rightPen lineWidth="0.25"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font size="14" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Contratante]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement uuid="be490da4-22fa-44d1-a58d-908daa1cafb2" x="0" y="151" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="d4515558-3ab2-4c2c-bd2c-b00a9af88388" x="0" y="0" width="60" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Cidade:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement uuid="d4515558-3ab2-4c2c-bd2c-b00a9af88388" x="203" y="0" width="42" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Bairro:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement uuid="d4515558-3ab2-4c2c-bd2c-b00a9af88388" x="382" y="0" width="39" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[C.E.P.:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement uuid="d4515558-3ab2-4c2c-bd2c-b00a9af88388" x="491" y="0" width="27" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[U.F.:]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="759fe1c1-ec44-4fc5-a5c4-5aad2dfebfe5" x="47" y="0" width="151" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement uuid="541a1f60-8e0f-43c5-a08b-97eabcb4c1a6" x="246" y="0" width="135" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{bairro}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement uuid="a915cd9d-63d1-4dbc-ac82-d7d630f10530" x="421" y="0" width="69" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{cep}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement uuid="10f33563-0198-47fd-aa7e-9e08a045a4ee" x="518" y="0" width="37" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="211" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="c47200b1-2217-4c73-8185-3c69aeca13f3" x="1" y="0" width="42" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Email:]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="cb691434-21f1-4ee4-a884-f577279ba43f" x="47" y="0" width="275" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="240" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="3f54ac4e-0eec-469a-99ae-b67451dfbb19" x="0" y="0" width="555" height="20"/>
+						<box>
+							<pen lineWidth="0.25"/>
+							<topPen lineWidth="0.25"/>
+							<leftPen lineWidth="0.25"/>
+							<bottomPen lineWidth="0.25"/>
+							<rightPen lineWidth="0.25"/>
+						</box>
+						<textElement textAlignment="Center">
+							<font size="14" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Contratada]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="111" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="b22ca48e-0dab-4efd-a6c0-0cd412992581" x="2" y="0" width="41" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Nome:]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="b4ff03bf-3828-48a8-841c-7038ce9b3c63" x="48" y="0" width="396" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="171" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="6630f9d1-ff0e-45da-bf58-0e4b9e4281b5" x="1" y="0" width="42" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[C.P.F.:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement uuid="6630f9d1-ff0e-45da-bf58-0e4b9e4281b5" x="174" y="0" width="32" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[R.G.:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement uuid="6630f9d1-ff0e-45da-bf58-0e4b9e4281b5" x="322" y="0" width="129" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Data de Nascimento:]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="aef69640-49d6-48b1-8922-fe9dd784a841" x="45" y="0" width="129" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement uuid="cfab78eb-ef9f-4f7a-a462-798d769a60ee" x="206" y="0" width="116" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement uuid="2e8b85b3-b9c4-4ca0-bd79-506c0849d257" x="452" y="0" width="100" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{to_char}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="191" width="555" height="20"/>
+					<staticText>
+						<reportElement uuid="191c30e4-3f1d-4084-8657-87fe7022c220" x="1" y="0" width="72" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Telefone(s):]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="8ca00a28-f1d9-4eea-8b7a-3403188b8c76" x="78" y="0" width="83" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{fone}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement uuid="a115f391-8174-402d-8718-29c488beb7ae" x="162" y="0" width="12" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<text><![CDATA[  /]]></text>
+					</staticText>
+					<textField>
+						<reportElement uuid="48ae0db9-5f43-49eb-96ab-d10d9c1eed40" x="181" y="0" width="100" height="20"/>
+						<textElement verticalAlignment="Middle">
+							<font size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</elementGroup>
+			<frame>
+				<reportElement uuid="be490da4-22fa-44d1-a58d-908daa1cafb2" x="0" y="302" width="555" height="20"/>
+				<staticText>
+					<reportElement uuid="d4515558-3ab2-4c2c-bd2c-b00a9af88388" x="0" y="0" width="60" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Local:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="48622bab-e2d2-48f8-a036-eb0ff1774838" x="75" y="0" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Assis-SP]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="262" width="555" height="20"/>
+				<staticText>
+					<reportElement uuid="b22ca48e-0dab-4efd-a6c0-0cd412992581" x="2" y="0" width="41" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a9b6878d-f805-43dc-affc-bb88a1e30963" x="75" y="0" width="143" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Oficina da Música - Ltda]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="342" width="555" height="20"/>
+				<staticText>
+					<reportElement uuid="191c30e4-3f1d-4084-8657-87fe7022c220" x="1" y="0" width="72" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Telefone(s):]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="91df29c5-5db5-45f0-8244-b1e9e45f4c0f" x="77" y="0" width="194" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[(18) 3324-9333 / (18) 9799-9412]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="d2a3a7c6-cc9f-4bf1-b0a9-38635b131cff" x="0" y="322" width="555" height="20"/>
+				<staticText>
+					<reportElement uuid="6630f9d1-ff0e-45da-bf58-0e4b9e4281b5" x="1" y="0" width="59" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[C.N.P.J.:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6630f9d1-ff0e-45da-bf58-0e4b9e4281b5" x="232" y="0" width="136" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Inscrição Estadual (Nº):]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="20480506-0914-45a6-bac5-2bb0040fb543" x="77" y="0" width="141" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[07.700.199 / 0001-00 ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7b193698-b96a-46d7-bccb-cb99cb9f57b1" x="368" y="0" width="136" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[TO 189.156.619.117]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="838f76f5-0a67-4684-b3dc-103c8dc81b98" x="0" y="282" width="555" height="20"/>
+				<staticText>
+					<reportElement uuid="00cc539d-385a-4934-8ce2-69ea4e51b3ff" x="1" y="0" width="60" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Endereço:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="366f0a60-bff7-4c7b-aa59-3a2bb3cf3282" x="74" y="0" width="294" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Rua Sebastião da Silva Leite, 858 - Vila Rosângela]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement uuid="a2423ed3-dbc0-4d37-a091-ebd5c7c9a0f3" x="2" y="373" width="555" height="27"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Por este instrumento particular de prestação de serviços, os acima nomeados têm entre si justo e contratado na melhor forma de direito o que segue: 
+
+         			  ]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="87e39049-5ef1-44d9-8f86-4be8c5081443" x="198" y="0" width="114" height="61"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="12a0225c-49bd-43a8-9af3-7383c268529e" x="2" y="61" width="555" height="29" forecolor="#000000"/>
+				<textElement textAlignment="Justified">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[                           Contrato - Aulas de Música]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="84417d2e-7e13-445f-889d-29c944e5aaed" x="0" y="400" width="555" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLAÚSULA I – DO OBJETO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4692ad48-2ca8-4197-8be8-876dece8c42a" x="0" y="414" width="518" height="14"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[A CONTRATADA prestará serviço de aulas práticas e cursos de apoio aos CONTRATANTES pelo período de 
+
+         			]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2a56729e-3deb-420f-82bd-0e1529e43f78" x="0" y="454" width="555" height="14"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLAÚSULA II – OBRIGAÇÕES
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0f20c09-b57a-491a-8a52-b919fba84692" x="0" y="468" width="555" height="140"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Da contratada: Para o fiel cumprimento do presente contratado a CONTRATADA se obriga a fornecer aos CONTRATANTES as aulas práticas com duração de 1 (uma) hora segundo horário combinado previamente na secretária da escola podendo ser mudado de acordo com a disponibilidade e necessidade da CONTRATANTE e da CONTRATADA e a opção também das aulas dos cursos de apoio com horários estipulados pela CONTRATADA também a combinar.
+Parágrafo Primeiro: Os CONTRATANTES obrigam-se a possuir o material necessário para o bom andamento das aulas e não perturbar as aulas para o bom andamento do curso;
+Parágrafo Segundo: Os CONTRATANTES declaram estar cientes do regulamento da escola contido nesse contrato;
+Parágrafo Terceiro: As aulas em turma não serão repostas, a não ser que o professor necessite e haja uma mudança no horário com consenso da CONTRATANTE e CONTRATADA e as aulas práticas serão repostas conforme o regulamento indica.
+			]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c56515a-a82d-4689-96db-f0fe5d764581" x="0" y="608" width="555" height="15"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLAÚSULA III – O PREÇO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="edea6ac8-3d4c-4672-abf1-a6449a51333f" x="0" y="623" width="518" height="15"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Pela prestação de serviços acima descritos, os CONTRATANTES pagarão à CONTRATADA a importância de]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="25c1cb5c-dbd0-46c8-918d-bd916034233e" x="489" y="623" width="12" height="15"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$P{qtdeParcelas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="766bdb46-00bb-4479-930b-6c1c1863c932" x="504" y="623" width="37" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{qtdeParcelasTexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b239dbb2-4322-499f-b846-2bdeec6ea9a1" x="1" y="637" width="114" height="15"/>
+				<textElement/>
+				<text><![CDATA[mensais no valor de R$]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3593d225-e9a5-44da-8101-7b20ce382aa1" x="109" y="637" width="37" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{valorMensalidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bee80bfb-173a-4c3b-9dff-299a10d97757" x="146" y="637" width="199" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{valorMensalidadeTexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="98c13a15-d5da-421c-8b5e-ec011be93e44" x="345" y="637" width="125" height="15"/>
+				<textElement/>
+				<text><![CDATA[, totalizando o valor de R$]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d506f7f6-4999-4898-a50d-80259e7401f3" x="465" y="637" width="85" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{valorCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f6a4319c-882f-401e-af75-0832ef606059" x="1" y="652" width="367" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{valorCursoTexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a68cc38d-b634-4fa1-9f04-6c150542d21c" x="370" y="652" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[durante o período de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="766bdb46-00bb-4479-930b-6c1c1863c932" x="483" y="652" width="37" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{qtdeParcelasTexto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="25c1cb5c-dbd0-46c8-918d-bd916034233e" x="468" y="652" width="12" height="15"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$P{qtdeParcelas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ecf02546-5f69-426f-960f-6d1b83e6699c" x="522" y="652" width="33" height="15"/>
+				<textElement/>
+				<text><![CDATA[meses. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4380ef26-9c5c-487f-b270-44aa69008361" x="1" y="667" width="280" height="15"/>
+				<textElement/>
+				<text><![CDATA[Parágrafo Primeiro: O pagamento deverá ser feito até o dia ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="fbcabef8-9183-474c-a40e-af1c570aa1ce" x="269" y="667" width="17" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{diaVencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0c95cb35-782a-47be-b34e-edec750ff929" x="283" y="667" width="72" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{diaVencimentoTexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4c0e2326-6d91-4e89-90fa-e80bab1b1df3" x="350" y="667" width="181" height="15"/>
+				<textElement/>
+				<text><![CDATA[ de cada mês, e fica estipulado que o ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4b54f28-e16b-45b8-b23b-3b0c854489ca" x="1" y="682" width="420" height="15"/>
+				<textElement/>
+				<text><![CDATA[pagamento da parcela realizado até o dia do vencimento do título terá desconto de R$  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5162f575-1aa5-44a5-82a3-940e2fac0f36" x="396" y="681" width="74" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{valorMulta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b94bf78f-98dd-4fd1-805a-7497e0c17d7c" x="2" y="696" width="493" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{valorMultaTexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6bdefa52-a9e7-4c7d-b3fe-3548987a1ad8" x="0" y="711" width="555" height="28"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Parágrafo Segundo: Fica estipulado que todo material didático e de apoio que houver necessidade durante o curso será as expensas do CONTRATANTE, ficando apenas por parte da CONTRATADA a emissão do certificado final. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="25c1cb5c-dbd0-46c8-918d-bd916034233e" x="505" y="413" width="12" height="15"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$P{qtdeParcelas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="29c5b040-87e9-4471-824c-d75883d8ebf4" x="1" y="426" width="554" height="15"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[meses, período este válido a este contrato, à se realizarem na escola OFICINA DA MÚSICA – Instituto Musical situada]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="766bdb46-00bb-4479-930b-6c1c1863c932" x="516" y="413" width="37" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{qtdeParcelasTexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e31b5936-0014-46e2-825f-ee52511fc4a5" x="1" y="441" width="551" height="13"/>
+				<textElement/>
+				<text><![CDATA[na Rua: Sebastião da Silva Leite, 858, Vila Rosangela CEP 19814-370 na cidade de Assis.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
