@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
 import productsfactory.model.StateModel;
+import productsfactory.model.Usuario;
 import productsfactory.model.Verifyer;
 import productsfactory.useful.ArquivosUtil;
 import productsfactory.useful.ConexaoOracle;
@@ -38,6 +39,7 @@ import productsfactory.useful.FieldsUtil;
 public class StateView extends javax.swing.JFrame {
     
     private static StateView jFrameState = null;
+    private static Usuario user = null;
     
     /** Creates new form Menu */
     public StateView() {
@@ -45,10 +47,12 @@ public class StateView extends javax.swing.JFrame {
     }
     
     
-     public StateView(java.awt.Frame janela) {
+     public StateView(java.awt.Frame janela, Usuario usuario) {
        initComponents();
+       user = usuario;
         
        this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
+       this.txaDescricaoFuncional.setText("Script que insere novos estados na tabela CSM_OFFER_SATE");
        this.txtDlServiceCode.setText("10795");
        this.txtDlUpdateStamp.setText("4");
        this.txtOperatorID.setText("93277340");
@@ -72,7 +76,7 @@ public class StateView extends javax.swing.JFrame {
     
     public static StateView getFrameState(java.awt.Frame janela){
           if (jFrameState == null) {
-            jFrameState = new StateView(janela);
+            jFrameState = new StateView(janela,user);
         }
         return jFrameState;
     }
@@ -86,10 +90,10 @@ public class StateView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlMenu = new javax.swing.JPanel();
+        pnlState = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnCompile = new javax.swing.JButton();
-        pnlMenu1 = new javax.swing.JPanel();
+        pnlStateInside = new javax.swing.JPanel();
         pnlEstados = new javax.swing.JPanel();
         chCheckAll = new javax.swing.JCheckBox();
         chAC = new javax.swing.JCheckBox();
@@ -134,11 +138,14 @@ public class StateView extends javax.swing.JFrame {
         pnlLog = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         edtLog = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txaDescricaoFuncional = new interfacegrafica.dpa.textarea.TextAreaDPA();
+        lblDescricaoFuncional = new interfacegrafica.dpa.labels.LabelDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
 
-        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlState.setBackground(new java.awt.Color(255, 255, 255));
 
         jToolBar1.setRollover(true);
 
@@ -154,8 +161,8 @@ public class StateView extends javax.swing.JFrame {
         });
         jToolBar1.add(btnCompile);
 
-        pnlMenu1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlMenu1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 5, true)));
+        pnlStateInside.setBackground(new java.awt.Color(255, 255, 255));
+        pnlStateInside.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 5, true)));
 
         pnlEstados.setBackground(new java.awt.Color(255, 255, 255));
         pnlEstados.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
@@ -345,7 +352,7 @@ public class StateView extends javax.swing.JFrame {
                     .addComponent(chTO))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chPA)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         lblDescricao.setText("Descrição BSR (Retirada do IW)");
@@ -409,90 +416,99 @@ public class StateView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout pnlMenu1Layout = new javax.swing.GroupLayout(pnlMenu1);
-        pnlMenu1.setLayout(pnlMenu1Layout);
-        pnlMenu1Layout.setHorizontalGroup(
-            pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMenu1Layout.createSequentialGroup()
+        txaDescricaoFuncional.setColumns(20);
+        txaDescricaoFuncional.setRows(5);
+        jScrollPane2.setViewportView(txaDescricaoFuncional);
+
+        lblDescricaoFuncional.setText("Descrição Funcional Script");
+
+        javax.swing.GroupLayout pnlStateInsideLayout = new javax.swing.GroupLayout(pnlStateInside);
+        pnlStateInside.setLayout(pnlStateInsideLayout);
+        pnlStateInsideLayout.setHorizontalGroup(
+            pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStateInsideLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo)
                     .addComponent(lblDescricao)
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlMenu1Layout.createSequentialGroup()
+                    .addGroup(pnlStateInsideLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMenu1Layout.createSequentialGroup()
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlStateInsideLayout.createSequentialGroup()
                                 .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
                                 .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(94, 94, 94)
                                 .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlMenu1Layout.createSequentialGroup()
-                                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblOperatorID))
                                 .addGap(27, 27, 27)
-                                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblDlServiceCode))
                                 .addGap(27, 27, 27)
-                                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDlUpdateStamp)
-                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(198, 198, 198)
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDescricaoFuncional)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlMenu1Layout.setVerticalGroup(
-            pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMenu1Layout.createSequentialGroup()
+        pnlStateInsideLayout.setVerticalGroup(
+            pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStateInsideLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(lblTitulo)
                 .addGap(30, 30, 30)
-                .addComponent(lblDescricao)
+                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescricao)
+                    .addComponent(lblDescricaoFuncional))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOperatorID)
-                    .addComponent(lblDlServiceCode)
-                    .addComponent(lblDlUpdateStamp))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenu1Layout.createSequentialGroup()
+                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblOperatorID)
+                            .addComponent(lblDlServiceCode)
+                            .addComponent(lblDlUpdateStamp))
+                        .addGap(7, 7, 7)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addComponent(pnlOfertas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlMenu1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlEstados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(814, 814, 814))
+                .addGap(23, 23, 23))
         );
 
-        javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
-        pnlMenu.setLayout(pnlMenuLayout);
-        pnlMenuLayout.setHorizontalGroup(
-            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1323, Short.MAX_VALUE)
-            .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlStateLayout = new javax.swing.GroupLayout(pnlState);
+        pnlState.setLayout(pnlStateLayout);
+        pnlStateLayout.setHorizontalGroup(
+            pnlStateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1324, Short.MAX_VALUE)
+            .addComponent(pnlStateInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        pnlMenuLayout.setVerticalGroup(
-            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMenuLayout.createSequentialGroup()
+        pnlStateLayout.setVerticalGroup(
+            pnlStateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStateLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1410, Short.MAX_VALUE))
-            .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlMenuLayout.createSequentialGroup()
-                    .addGap(40, 40, 40)
-                    .addComponent(pnlMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlStateInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlMenu, java.awt.BorderLayout.CENTER);
+        getContentPane().add(pnlState, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -501,149 +517,163 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
   
     this.edtLog.setText("");
     if (this.validaCampos()) {
-
-        Fields fields = this.getFields();
-        List<String> states = this.retornaStates();
-        List<String> ofertas = FieldsUtil.getEdtTextByLine(this.edtCodigo.getText());
-
-        /**
-         * JFile configuration *
-         */
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fileChooser.setAcceptAllFileFilterUsed(false);
-
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                edtLog.append("Iniciando...\n");
-                edtLog.append("\n");
-                edtLog.append("===================================\n");
-                edtLog.append("Testando conexão com o banco de dados...\n");
-                edtLog.append("===================================\n");
-                Connection con = null;
-                con = ConexaoOracle.getInstance().getConnection();
-                if (con != null) {
-                    this.PrintLog("Conectado com Sucesso!");
-                    con.close();
-                    con = null;
-                    this.PrintLog("===================================");
-                    this.PrintLog("\n");
-                    this.PrintLog("===================================");
-                    this.PrintLog("Verificando ofertas...");
-                    this.PrintLog("===================================");
-
-                    List<Offers> offers = Verifyer.verifyOfferExists(ofertas);
-                    for (int i = 0; i < offers.size(); i++) {
-                        this.PrintLog(offers.get(i).getSocCD() + " - " + offers.get(i).getSocName() + " - " + offers.get(i).getStatusOffer());
-                    }
-                    this.PrintLog("\n");
-                    this.PrintLog("===================================");
-                    this.PrintLog("Estados Selecionados:");
-                    this.PrintLog("===================================");
-                    this.PrintLog(this.retornaStates().toString());
-                    this.PrintLog("\n");
-
-                    Path pathOS = Paths.get(fileChooser.getSelectedFile() + "\\" + fields.getDlServiceCode() + fields.getDlUpdateStamp());
-
-                    /**
-                     * Directorys and files Creation begin **
-                     *
-                     * /** Creates the OS Directory *
-                     */
-                    this.PrintLog("Criando diretório: " + pathOS.toString());
-                    if (ArquivosUtil.createDir(pathOS.toString())) {
-                        this.PrintLog("Diretório criado com sucesso!");
-                    } else {
-                        this.PrintLog("Erro ao criar diretório " + pathOS.toString());
-                    }
-
-                    /**
-                     * Creates the INSERTS Directory *
-                     */
-                    this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\INSERTS");
-                    if (ArquivosUtil.createDir(pathOS.toString() + "\\INSERTS")) {
-                        this.PrintLog("SubDiretório criado com sucesso!");
-                    } else {
-                        this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\INSERTS");
-                    }
-
-                    /**
-                     * Creates the ROLLBACK Directory *
-                     */
-                    this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\ROLLBACK");
-                    if (ArquivosUtil.createDir(pathOS.toString() + "\\ROLLBACK")) {
-                        this.PrintLog("SubDiretório criado com sucesso!");
-                    } else {
-                        this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\ROLLBACK");
-                    }
-
-                    /**
-                     * Creates the VALIDATION Directory *
-                     */
-                    this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\VALIDATION");
-                    if (ArquivosUtil.createDir(pathOS.toString() + "\\VALIDATION")) {
-                        this.PrintLog("SubDiretório criado com sucesso!");
-                    } else {
-                        this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\VALIDATION");
-                    }
-
-                    /**
-                     * Creates the LOG Directory *
-                     */
-                    this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\LOG");
-                    if (ArquivosUtil.createDir(pathOS.toString() + "\\LOG")) {
-                        this.PrintLog("SubDiretório criado com sucesso!");
-                    } else {
-                        this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\LOG");
-                    }
-
-                    this.PrintLog("===================================");
-                    this.PrintLog("Gerar Script Inserts...");
-                    this.PrintLog("===================================");
-
-                    String contentInsert = StateModel.generateInsertsStates(offers, states, fields);
-                    this.PrintLog(contentInsert);
-
-                    this.PrintLog("===================================");
-                    this.PrintLog("Gerar Scripts de Rolback...");
-                    this.PrintLog("===================================");
-                    String contentDelete = StateModel.generateRollbackStates(offers, states, fields);
-                    this.PrintLog(contentDelete);
-
-                    this.PrintLog("===================================");
-                    this.PrintLog("Gerando Query de Validação...");
-                    this.PrintLog("===================================");
-                    String contentSelect = StateModel.generateSelectState(offers, states, fields);
-                    this.PrintLog(contentSelect);
-
-                    if (ArquivosUtil.createFile(pathOS.toString() + "\\INSERTS\\" + fields.getOsNumber() + "_INSERTS.sql", contentInsert)
-                            && ArquivosUtil.createFile(pathOS.toString() + "\\ROLLBACK\\" + fields.getOsNumber() + "_ROLLBACK.sql", contentDelete)
-                            && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION.sql", contentSelect)) {
-
+        try {
+            Fields fields = this.getFields();
+            List<StateModel> states = this.retornaStates();
+            List<String> ofertas = FieldsUtil.getEdtTextByLine(this.edtCodigo.getText());
+            
+            /**
+             * JFile configuration *
+             */
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    edtLog.append("Iniciando...\n");
+                    edtLog.append("\n");
+                    edtLog.append("===================================\n");
+                    edtLog.append("Testando conexão com o banco de dados...\n");
+                    edtLog.append("===================================\n");
+                    Connection con = null;
+                    con = ConexaoOracle.getInstance().getConnection();
+                    if (con != null) {
+                        this.PrintLog("Conectado com Sucesso!");
+                        con.close();
+                        con = null;
+                        this.PrintLog("===================================");
                         this.PrintLog("\n");
-                        this.PrintLog("***************************************************************************************************************************");
-                        this.PrintLog("***************************************************************************************************************************");
-                        this.PrintLog("***                                                                       Processo Finalizado com sucesso!                                                           ***");
-                        this.PrintLog("***************************************************************************************************************************");
-                        this.PrintLog("***************************************************************************************************************************");
-                        ArquivosUtil.createFile(pathOS.toString() + "\\LOG\\" + fields.getOsNumber() + "_LOG.txt", this.edtLog.getText());
+                        this.PrintLog("===================================");
+                        this.PrintLog("Verificando ofertas...");
+                        this.PrintLog("===================================");
+                        
+                        List<Offers> offers = Verifyer.verifyOfferExists(ofertas);
+                        for (Offers oferta : offers) {
+                            this.PrintLog(oferta.getSocCD() + " - " + oferta.getSocName() + " - " + oferta.getStatusOffer());
+                        }
+                        this.PrintLog("\n");
+                        this.PrintLog("===================================");
+                        this.PrintLog("Estados Selecionados:");
+                        this.PrintLog("===================================");
+                        List<StateModel> stateModel = this.retornaStates();
+                        for(StateModel state : stateModel){
+                            this.PrintLog(state.getState());
+                        }
+                        this.PrintLog("\n");
+                        
+                        Path pathOS = Paths.get(fileChooser.getSelectedFile() + "\\" + fields.getDlServiceCode() + fields.getDlUpdateStamp());
+                        
+                        /**
+                         * Directorys and files Creation begin **
+                         *
+                         * /** Creates the OS Directory *
+                         */
+                        this.PrintLog("Criando diretório: " + pathOS.toString());
+                        if (ArquivosUtil.createDir(pathOS.toString())) {
+                            this.PrintLog("Diretório criado com sucesso!");
+                        } else {
+                            this.PrintLog("Erro ao criar diretório " + pathOS.toString());
+                        }
+                        
+                        /**
+                         * Creates the INSERTS Directory *
+                         */
+                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\INSERTS");
+                        if (ArquivosUtil.createDir(pathOS.toString() + "\\INSERTS")) {
+                            this.PrintLog("SubDiretório criado com sucesso!");
+                        } else {
+                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\INSERTS");
+                        }
+                        
+                        /**
+                         * Creates the ROLLBACK Directory *
+                         */
+                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\ROLLBACK");
+                        if (ArquivosUtil.createDir(pathOS.toString() + "\\ROLLBACK")) {
+                            this.PrintLog("SubDiretório criado com sucesso!");
+                        } else {
+                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\ROLLBACK");
+                        }
+                        
+                        /**
+                         * Creates the VALIDATION Directory *
+                         */
+                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\VALIDATION");
+                        if (ArquivosUtil.createDir(pathOS.toString() + "\\VALIDATION")) {
+                            this.PrintLog("SubDiretório criado com sucesso!");
+                        } else {
+                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\VALIDATION");
+                        }
+                        
+                        /**
+                         * Creates the LOG Directory *
+                         */
+                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\LOG");
+                        if (ArquivosUtil.createDir(pathOS.toString() + "\\LOG")) {
+                            this.PrintLog("SubDiretório criado com sucesso!");
+                        } else {
+                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\LOG");
+                        }
+                        
+                        this.PrintLog("===================================");
+                        this.PrintLog("Gerar Script Inserts...");
+                        this.PrintLog("===================================");
+                        
+                        String contentInsert = StateModel.generateInsertsStates(offers, states, fields);
+                        this.PrintLog(contentInsert);
+                        
+                        this.PrintLog("===================================");
+                        this.PrintLog("Gerar Scripts de Rolback...");
+                        this.PrintLog("===================================");
+                        String contentDelete = StateModel.generateRollbackStates(offers, states, fields);
+                        this.PrintLog(contentDelete);
+                        
+                        this.PrintLog("===================================");
+                        this.PrintLog("Gerando Query de Validação...");
+                        this.PrintLog("===================================");
+                        String contentSelect = StateModel.generateSelectState(offers, states, fields);
+                        this.PrintLog(contentSelect);
+                        
+                        
+                        this.PrintLog("===================================");
+                        this.PrintLog("Gerando Query de Validação Rollback...");
+                        this.PrintLog("===================================");
+                        String contentSelectRollback = StateModel.generateSelectStateRollback(offers, states, fields);
+                        this.PrintLog(contentSelectRollback);
+                        
+                        if (ArquivosUtil.createFile(pathOS.toString() + "\\INSERTS\\" + fields.getOsNumber() + "_INSERTS.sql", contentInsert)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\ROLLBACK\\" + fields.getOsNumber() + "_ROLLBACK.sql", contentDelete)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION.sql", contentSelect)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION_ROLLBACK.sql", contentSelectRollback)) {
+                            
+                            this.PrintLog("\n");
+                            this.PrintLog("***************************************************************************************************************************");
+                            this.PrintLog("***************************************************************************************************************************");
+                            this.PrintLog("***                                                                       Processo Finalizado com sucesso!                                                           ***");
+                            this.PrintLog("***************************************************************************************************************************");
+                            this.PrintLog("***************************************************************************************************************************");
+                            ArquivosUtil.createFile(pathOS.toString() + "\\LOG\\" + fields.getOsNumber() + "_LOG.txt", this.edtLog.getText());
+                        }
+                        
+                    } else {
+
+                        this.PrintLog("===================================");
+                        this.PrintLog("Erro ao conectar ao banco de dados!");
+                        this.PrintLog("===================================");
                     }
-
-                } else {
-
-                    this.PrintLog("===================================");
-                    this.PrintLog("Erro ao conectar ao banco de dados!");
-                    this.PrintLog("===================================");
+                    
+                } catch (InterruptedException | SQLException | IOException ex) {
+                    Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex);
+                    
                 }
-
-            } catch (InterruptedException | SQLException | IOException ex) {
-                Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex);
-
+                
+            } else {
+                System.out.println("No Selection ");
             }
-
-        } else {
-            System.out.println("No Selection ");
+        } catch (SQLException ex) {
+            Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
           
@@ -759,18 +789,21 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JEditorPane edtCodigo;
     private javax.swing.JTextArea edtLog;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblDescricaoFuncional;
     private javax.swing.JLabel lblDlServiceCode;
     private javax.swing.JLabel lblDlUpdateStamp;
     private javax.swing.JLabel lblOperatorID;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlEstados;
     private javax.swing.JPanel pnlLog;
-    private javax.swing.JPanel pnlMenu;
-    private javax.swing.JPanel pnlMenu1;
     private javax.swing.JPanel pnlOfertas;
+    private javax.swing.JPanel pnlState;
+    private javax.swing.JPanel pnlStateInside;
+    private javax.swing.JTextArea txaDescricaoFuncional;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtDlServiceCode;
     private javax.swing.JTextField txtDlUpdateStamp;
@@ -800,6 +833,9 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }else if (this.txtDlUpdateStamp.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "DL UPDATE STAMP é Obrigatório", "Atenção!", 2);
             return false;
+        }else if (this.txaDescricaoFuncional.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Descrição Funcional é Obrigatória", "Atenção!", 2);
+            return false;
         }else if (!this.validaCheckbox()) {
             JOptionPane.showMessageDialog(this, "Selecione ao menos um Estado!", "Atenção!", 2);
             return false;
@@ -807,9 +843,9 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         return true;
     }
     
-    public List<String> retornaStates(){
+    public List<StateModel> retornaStates(){
         
-        List<String> listEstados = new ArrayList<>();
+        List<StateModel> listEstados = new ArrayList<>();
         
         JCheckBox[] vetChebox = new JCheckBox[27];
         
@@ -872,23 +908,35 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         vetStates[25] = "SP";
         vetStates[26] = "TO";
         
+        
+        
         for(int i = 0; i < vetChebox.length;i++){
-            if(vetChebox[i].isSelected())
-                listEstados.add(vetStates[i]);
+            if(vetChebox[i].isSelected()){
+               StateModel state = new StateModel();
+               state.setState(vetStates[i]);
+               listEstados.add(state);
+            }
+               
+                          
         }
-        
-        
+
         return listEstados;
     }
-    
-    private Fields getFields(){
+    /**
+     * Recupera campos do formulário
+     * @return objeto do tipo <code>Fields</code> 
+     * @throws SQLException 
+     */
+    private Fields getFields() throws SQLException{
         
         Fields fields = new Fields();
         
         fields.setDlServiceCode(this.txtDlServiceCode.getText());
+        fields.setDescFuncional(this.txaDescricaoFuncional.getText());
         fields.setDlUpdateStamp(this.txtDlUpdateStamp.getText());
         fields.setOperatorID(this.txtOperatorID.getText());
         fields.setOsDesc(this.txtDescricao.getText());
+        fields.setUserName(Usuario.getFullName(user).toString());
         
         return fields;
         

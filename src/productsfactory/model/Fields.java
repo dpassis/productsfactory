@@ -13,10 +13,12 @@ package productsfactory.model;
 public class Fields {
     
     private String OsDesc;
+    private String DescFuncional;
     private String OperatorID;
     private String DlServiceCode;
     private String DlUpdateStamp;
     private String OsNumber;
+    private String UserName;
 
     public String getOsNumber() {
         return this.getDlServiceCode()+this.getDlUpdateStamp();
@@ -57,7 +59,22 @@ public class Fields {
     public void setDlUpdateStamp(String DlUpdateStamp) {
         this.DlUpdateStamp = DlUpdateStamp;
     }
-    
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    public String getDescFuncional() {
+        return DescFuncional;
+    }
+
+    public void setDescFuncional(String DescFuncional) {
+        this.DescFuncional = DescFuncional;
+    }
     
     
 }

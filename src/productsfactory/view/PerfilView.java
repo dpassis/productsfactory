@@ -21,9 +21,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import productsfactory.control.PerfilControl;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
+import productsfactory.model.PerfilModel;
+import productsfactory.model.Usuario;
 import productsfactory.model.Verifyer;
 import productsfactory.useful.ArquivosUtil;
 import productsfactory.useful.ConexaoOracle;
@@ -37,6 +38,7 @@ public class PerfilView extends javax.swing.JFrame {
     
     StringBuilder strLog = new StringBuilder();
     private static PerfilView jFramePerfil = null;
+    private static Usuario user = null;
     
     /** Creates new form Menu */
     public PerfilView() {
@@ -44,8 +46,9 @@ public class PerfilView extends javax.swing.JFrame {
     }
     
     
-     public PerfilView(java.awt.Frame janela) {
+     public PerfilView(java.awt.Frame janela, Usuario usuario) {
         initComponents();
+        user = usuario;
         //this.edtCodigo.setVisible(false);
         
        this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
@@ -56,11 +59,29 @@ public class PerfilView extends javax.swing.JFrame {
        
      
        
-       this.edtPerfil.setText("380551063\n" +
-                                "380600681\n" +
-                                "363001387\n" +
-                                "380585340\n" +
-                                "380419853");
+       this.edtCodigo.setText("167000887\n"+
+                                "167000889\n"+
+                                "169000753\n"+
+                                "169000952\n"+
+                                "169000979\n"+
+                                "169000991\n"+
+                                "169001090\n"+
+                                "169001154\n"+
+                                "169001208\n"+
+                                "169001235\n"+
+                                "169001264\n");
+
+       
+       this.edtPerfil.setText("ACORPSUP\n"+
+                            "_ANCONTPF\n"+
+                            "_BCKPF_MU\n"+
+                            "_POSFATSUP\n"+
+                            "_TIEAI\n"+
+                            "_PROCESSOS\n"+
+                            "_TMK_TERCO\n"+
+                            "_COBRGECOR\n"+
+                            "_VIDEOCOOR"
+                            );
                
        
         
@@ -68,7 +89,7 @@ public class PerfilView extends javax.swing.JFrame {
     
     public static PerfilView getFramePerfil(java.awt.Frame janela){
           if (jFramePerfil == null) {
-            jFramePerfil = new PerfilView(janela);
+            jFramePerfil = new PerfilView(janela,user);
         }
         return jFramePerfil;
     }
@@ -82,10 +103,10 @@ public class PerfilView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlMenu = new javax.swing.JPanel();
+        pnlPerfil = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnCompile = new javax.swing.JButton();
-        pnlMenu1 = new javax.swing.JPanel();
+        pnlPerfilInside = new javax.swing.JPanel();
         pnlPerfis = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         edtPerfil = new javax.swing.JEditorPane();
@@ -104,11 +125,15 @@ public class PerfilView extends javax.swing.JFrame {
         pnlLog = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         edtLog = new javax.swing.JTextArea();
+        lblDescricaoFuncional = new interfacegrafica.dpa.labels.LabelDPA();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txaDescricaoFuncional = new interfacegrafica.dpa.textarea.TextAreaDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Menu");
+        setTitle("Perfil");
+        setPreferredSize(new java.awt.Dimension(1348, 748));
 
-        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPerfil.setBackground(new java.awt.Color(255, 255, 255));
 
         jToolBar1.setRollover(true);
 
@@ -124,8 +149,8 @@ public class PerfilView extends javax.swing.JFrame {
         });
         jToolBar1.add(btnCompile);
 
-        pnlMenu1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlMenu1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 5, true)));
+        pnlPerfilInside.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPerfilInside.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 5, true)));
 
         pnlPerfis.setBackground(new java.awt.Color(255, 255, 255));
         pnlPerfis.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfis", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
@@ -147,10 +172,10 @@ public class PerfilView extends javax.swing.JFrame {
         );
         pnlPerfisLayout.setVerticalGroup(
             pnlPerfisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPerfisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPerfisLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         lblDescricao.setText("Descrição BSR (Retirada do IW)");
@@ -175,19 +200,19 @@ public class PerfilView extends javax.swing.JFrame {
         pnlOfertasLayout.setHorizontalGroup(
             pnlOfertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOfertasLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(30, 30, 30))
         );
         pnlOfertasLayout.setVerticalGroup(
             pnlOfertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOfertasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        lblTitulo.setText("GENERATE PERFIL (BSR)");
+        lblTitulo.setText("GENERATE INSERT CSM_OFFER_SALE_CHANNEL");
 
         pnlLog.setBackground(new java.awt.Color(255, 255, 255));
         pnlLog.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Log Panel", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
@@ -209,243 +234,265 @@ public class PerfilView extends javax.swing.JFrame {
         );
         pnlLogLayout.setVerticalGroup(
             pnlLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
-        javax.swing.GroupLayout pnlMenu1Layout = new javax.swing.GroupLayout(pnlMenu1);
-        pnlMenu1.setLayout(pnlMenu1Layout);
-        pnlMenu1Layout.setHorizontalGroup(
-            pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMenu1Layout.createSequentialGroup()
+        lblDescricaoFuncional.setText("Descrição Funcional Script");
+
+        txaDescricaoFuncional.setColumns(20);
+        txaDescricaoFuncional.setRows(5);
+        jScrollPane4.setViewportView(txaDescricaoFuncional);
+
+        javax.swing.GroupLayout pnlPerfilInsideLayout = new javax.swing.GroupLayout(pnlPerfilInside);
+        pnlPerfilInside.setLayout(pnlPerfilInsideLayout);
+        pnlPerfilInsideLayout.setHorizontalGroup(
+            pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPerfilInsideLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo)
                     .addComponent(lblDescricao)
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlMenu1Layout.createSequentialGroup()
+                    .addGroup(pnlPerfilInsideLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMenu1Layout.createSequentialGroup()
+                        .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPerfilInsideLayout.createSequentialGroup()
                                 .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addComponent(pnlPerfis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(94, 94, 94)
-                                .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlMenu1Layout.createSequentialGroup()
-                                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(pnlPerfis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlPerfilInsideLayout.createSequentialGroup()
+                                .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblOperatorID))
                                 .addGap(27, 27, 27)
-                                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblDlServiceCode))
                                 .addGap(27, 27, 27)
-                                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDlUpdateStamp)
-                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(88, 88, 88)
+                        .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDescricaoFuncional)
+                            .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
-        pnlMenu1Layout.setVerticalGroup(
-            pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMenu1Layout.createSequentialGroup()
+        pnlPerfilInsideLayout.setVerticalGroup(
+            pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPerfilInsideLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addComponent(lblDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOperatorID)
-                    .addComponent(lblDlServiceCode)
-                    .addComponent(lblDlUpdateStamp))
-                .addGap(7, 7, 7)
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenu1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlMenu1Layout.createSequentialGroup()
+                .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescricao)
+                    .addComponent(lblDescricaoFuncional))
+                .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPerfilInsideLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblOperatorID)
+                            .addComponent(lblDlServiceCode)
+                            .addComponent(lblDlUpdateStamp))
+                        .addGap(7, 7, 7)
+                        .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
-                        .addGroup(pnlMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlPerfilInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(pnlPerfis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlOfertas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(814, 814, 814))
+                            .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPerfilInsideLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14))
         );
 
-        javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
-        pnlMenu.setLayout(pnlMenuLayout);
-        pnlMenuLayout.setHorizontalGroup(
-            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1323, Short.MAX_VALUE)
-            .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlPerfilLayout = new javax.swing.GroupLayout(pnlPerfil);
+        pnlPerfil.setLayout(pnlPerfilLayout);
+        pnlPerfilLayout.setHorizontalGroup(
+            pnlPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1354, Short.MAX_VALUE)
+            .addComponent(pnlPerfilInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        pnlMenuLayout.setVerticalGroup(
-            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMenuLayout.createSequentialGroup()
+        pnlPerfilLayout.setVerticalGroup(
+            pnlPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPerfilLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1423, Short.MAX_VALUE))
-            .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlMenuLayout.createSequentialGroup()
-                    .addGap(40, 40, 40)
-                    .addComponent(pnlMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlPerfilInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlMenu, java.awt.BorderLayout.CENTER);
+        getContentPane().add(pnlPerfil, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
-      this.edtLog.setText("");
-      if(this.validaCampos()) {
-      
-        Fields fields = this.getFields();
-        List<String> perfis = FieldsUtil.getEdtTextByLine(this.edtCodigo.getText());
-        
-      
-         //JFile configuration
-        JFileChooser  fileChooser = new JFileChooser();  
-        fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");  
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
-        fileChooser.setAcceptAllFileFilterUsed(false);
-       
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) { 
+    private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
+        this.edtLog.setText("");
+        if(this.validaCampos()) {
             try {
-              edtLog.append("Iniciando...\n");
-              edtLog.append("\n");
-              edtLog.append("===================================\n");
-              edtLog.append("Testando conexão com o banco de dados...\n");
-              edtLog.append("===================================\n");
-              Connection con = null;
-              con = ConexaoOracle.getInstance().getConnection();
-              if(con != null){
-                this.PrintLog("Conectado com Sucesso!");
-                con.close();
-                con = null;
-                this.PrintLog("===================================");
-                this.PrintLog("\n");
-                this.PrintLog("===================================");
-                this.PrintLog("Verificando ofertas...");
-                this.PrintLog("===================================");
-                System.out.println(this.edtPerfil.getText());
-                List<Offers> offers = Verifyer.verifyOfferExists(perfis);
-                for(int i = 0; i < offers.size();i++){
-                   // System.out.println(offers.get(i));
-                    this.PrintLog(offers.get(i).getSocCD()+" - "+offers.get(i).getSocName()+" - "+offers.get(i).getStatusOffer());
-                    System.out.println(offers.get(i).getSocCD()+" - "+offers.get(i).getSocName()+" - "+offers.get(i).getStatusOffer());
-                    //Verifyer.verifyOfferExists(offers.get(i).toString());
-                }
-                this.PrintLog("\n");
-                this.PrintLog("===================================");
-                this.PrintLog("Perfis Selecionados:");
-                this.PrintLog("===================================");
-                this.PrintLog(perfis.toString());
-                this.PrintLog("\n");
+                Fields fields = this.getFields();
+                List<String> perfis = FieldsUtil.getEdtTextByLine(this.edtPerfil.getText());
+                List<String> ofertas = FieldsUtil.getEdtTextByLine(this.edtCodigo.getText());
                 
-                Path pathOS = Paths.get(fileChooser.getSelectedFile()+"\\"+fields.getDlServiceCode()+fields.getDlUpdateStamp());
+                //JFile configuration
+                JFileChooser  fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                fileChooser.setAcceptAllFileFilterUsed(false);
                 
-                /** Directorys and  files Creation begin **
-                
-                /** Creates the OS Directory **/
-                this.PrintLog("Criando diretório: "+pathOS.toString());
-                if(ArquivosUtil.createDir(pathOS.toString())){
-                    this.PrintLog("Diretório criado com sucesso!");
-                }else{ 
-                    this.PrintLog("Erro ao criar diretório "+pathOS.toString());
-                }
-                
-                /** Creates the INSERTS Directory **/
-                this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\INSERTS");
-                if(ArquivosUtil.createDir(pathOS.toString()+"\\INSERTS")){
-                    this.PrintLog("SubDiretório criado com sucesso!");
-                }else{ 
-                    this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\INSERTS");
-                }
+                if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        edtLog.append("Iniciando...\n");
+                        edtLog.append("\n");
+                        edtLog.append("===================================\n");
+                        edtLog.append("Testando conexão com o banco de dados...\n");
+                        edtLog.append("===================================\n");
+                        Connection con = null;
+                        con = ConexaoOracle.getInstance().getConnection();
+                        if(con != null){
+                            this.PrintLog("Conectado com Sucesso!");
+                            con.close();
+                            con = null;
+                            this.PrintLog("===================================");
+                            this.PrintLog("\n");
+                            this.PrintLog("===================================");
+                            this.PrintLog("Verificando ofertas...");
+                            this.PrintLog("===================================");
+                            
+                            List<Offers> offers = Verifyer.verifyOfferExists(ofertas);
+                            for (Offers oferta : offers) {
+                                this.PrintLog(oferta.getSocCD() + " - " + oferta.getSocName() + " - " + oferta.getStatusOffer());
+                            }
+                            this.PrintLog("\n");
+                            this.PrintLog("===================================");
+                            this.PrintLog("Verificando Perfis:");
+                            this.PrintLog("===================================");
+                            List<PerfilModel> perfil = Verifyer.verifyPerfilExists(perfis);
+                            for (PerfilModel perfilObj : perfil) {
+                                this.PrintLog(perfilObj.getPerfil() + " - " + perfilObj.getStatusPerfil());
+                            }
+                            this.PrintLog("\n");
+                            
+                            Path pathOS = Paths.get(fileChooser.getSelectedFile()+"\\"+fields.getDlServiceCode()+fields.getDlUpdateStamp());
+                            
+                            /** Directorys and  files Creation begin **
+                             * 
+                             * /** Creates the OS Directory **/
+                            this.PrintLog("Criando diretório: "+pathOS.toString());
+                            if(ArquivosUtil.createDir(pathOS.toString())){
+                                this.PrintLog("Diretório criado com sucesso!");
+                            }else{
+                                this.PrintLog("Erro ao criar diretório "+pathOS.toString());
+                            }
 
-                /** Creates the ROLLBACK Directory **/
-                this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\ROLLBACK");
-                if(ArquivosUtil.createDir(pathOS.toString()+"\\ROLLBACK")){
-                    this.PrintLog("SubDiretório criado com sucesso!");
-                }else{ 
-                    this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\ROLLBACK");
-                }
-                
-                /** Creates the VALIDATION Directory **/
-                this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\VALIDATION");
-                if(ArquivosUtil.createDir(pathOS.toString()+"\\VALIDATION")){
-                    this.PrintLog("SubDiretório criado com sucesso!");
-                }else{ 
-                    this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\VALIDATION");
-                }
+                            /** Creates the INSERTS Directory **/
+                            this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\INSERTS");
+                            if(ArquivosUtil.createDir(pathOS.toString()+"\\INSERTS")){
+                                this.PrintLog("SubDiretório criado com sucesso!");
+                            }else{
+                                this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\INSERTS");
+                            }
 
-                /** Creates the LOG Directory **/
-                this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\LOG");
-                if(ArquivosUtil.createDir(pathOS.toString()+"\\LOG")){
-                    this.PrintLog("SubDiretório criado com sucesso!");
-                }else{ 
-                    this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\LOG");
-                }
-                
-                
-                this.PrintLog("===================================");
-                this.PrintLog("Gerar Script Inserts...");
-                this.PrintLog("===================================");
+                            /** Creates the ROLLBACK Directory **/
+                            this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\ROLLBACK");
+                            if(ArquivosUtil.createDir(pathOS.toString()+"\\ROLLBACK")){
+                                this.PrintLog("SubDiretório criado com sucesso!");
+                            }else{
+                                this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\ROLLBACK");
+                            }
 
-                String contentInsert = PerfilControl.generateInsertsPerfil(offers, perfis, fields);
-                this.PrintLog(contentInsert);
-                
-                this.PrintLog("===================================");
-                this.PrintLog("Gerar Scripts de Rolback...");
-                this.PrintLog("===================================");
-                String contentDelete =  PerfilControl.generateRollbackPerfil(offers, perfis, fields);
-                this.PrintLog(contentDelete);
-                
-                this.PrintLog("===================================");
-                this.PrintLog("Gerando Query de Validação...");
-                this.PrintLog("===================================");
-                String contentSelect =  PerfilControl.generateSelectPerfil(offers, perfis, fields);
-                this.PrintLog(contentSelect);
-                
+                            /** Creates the VALIDATION Directory **/
+                            this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\VALIDATION");
+                            if(ArquivosUtil.createDir(pathOS.toString()+"\\VALIDATION")){
+                                this.PrintLog("SubDiretório criado com sucesso!");
+                            }else{
+                                this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\VALIDATION");
+                            }
 
-                    if(ArquivosUtil.createFile(pathOS.toString()+"\\INSERTS\\"+fields.getOsNumber()+"_INSERTS.sql",contentInsert) &&
-                        ArquivosUtil.createFile(pathOS.toString()+"\\ROLLBACK\\"+fields.getOsNumber()+"_ROLLBACK.sql",contentDelete) &&
-                        ArquivosUtil.createFile(pathOS.toString()+"\\VALIDATION\\"+fields.getOsNumber()+"_VALIDATION.sql",contentSelect)){
-              
-                     this.PrintLog("\n");
-                     this.PrintLog("***************************************************************************************************************************");
-                     this.PrintLog("***************************************************************************************************************************");
-                     this.PrintLog("***                                                                       Processo Finalizado com sucesso!                                                           ***");
-                     this.PrintLog("***************************************************************************************************************************");
-                     this.PrintLog("***************************************************************************************************************************");
-                     ArquivosUtil.createFile(pathOS.toString()+"\\LOG\\"+fields.getOsNumber()+"_LOG.txt",this.edtLog.getText());
+                            /** Creates the LOG Directory **/
+                            this.PrintLog("Criando SubDiretório: " + pathOS.toString()+"\\LOG");
+                            if(ArquivosUtil.createDir(pathOS.toString()+"\\LOG")){
+                                this.PrintLog("SubDiretório criado com sucesso!");
+                            }else{
+                                this.PrintLog("Erro ao criar SubDiretório "+pathOS.toString()+"\\LOG");
+                            }
+
+                            this.PrintLog("===================================");
+                            this.PrintLog("Gerar Script Inserts...");
+                            this.PrintLog("===================================");
+
+                            String contentInsert = PerfilModel.generateInsertsPerfis(offers, perfil, fields);
+                            this.PrintLog(contentInsert);
+
+                            this.PrintLog("===================================");
+                            this.PrintLog("Gerar Scripts de Rolback...");
+                            this.PrintLog("===================================");
+                            String contentDelete =  PerfilModel.generateRollbackPerfis(offers, perfil, fields);
+                            this.PrintLog(contentDelete);
+
+                            this.PrintLog("===================================");
+                            this.PrintLog("Gerando Query de Validação...");
+                            this.PrintLog("===================================");
+                            String contentSelect =  PerfilModel.generateSelectPerfil(offers, perfil, fields);
+                            this.PrintLog(contentSelect);
+                            
+                            this.PrintLog("===================================");
+                            this.PrintLog("Gerando Query de Validação Rollback...");
+                            this.PrintLog("===================================");
+                            String contentSelectRollback =  PerfilModel.generateSelectPerfilRollback(offers, perfil, fields);
+                            this.PrintLog(contentSelectRollback);
+
+                            if(ArquivosUtil.createFile(pathOS.toString()+"\\INSERTS\\"+fields.getOsNumber()+"_INSERTS.sql",contentInsert) &&
+                                    ArquivosUtil.createFile(pathOS.toString()+"\\ROLLBACK\\"+fields.getOsNumber()+"_ROLLBACK.sql",contentDelete) &&
+                                    ArquivosUtil.createFile(pathOS.toString()+"\\VALIDATION\\"+fields.getOsNumber()+"_VALIDATION.sql",contentSelect)&&
+                                    ArquivosUtil.createFile(pathOS.toString()+"\\VALIDATION\\"+fields.getOsNumber()+"_VALIDATION_ROLLBACK.sql",contentSelectRollback)){
+                                
+                                this.PrintLog("\n");
+                                this.PrintLog("***************************************************************************************************************************");
+                                this.PrintLog("***************************************************************************************************************************");
+                                this.PrintLog("***                                                                       Processo Finalizado com sucesso!                                                           ***");
+                                this.PrintLog("***************************************************************************************************************************");
+                                this.PrintLog("***************************************************************************************************************************");
+                                ArquivosUtil.createFile(pathOS.toString()+"\\LOG\\"+fields.getOsNumber()+"_LOG.txt",this.edtLog.getText());
+                            }
+                            
+                        }else {
+                            
+                            this.PrintLog("===================================");
+                            this.PrintLog("Erro ao conectar ao banco de dados!");
+                            this.PrintLog("===================================");
+                        }
+                        
+                    } catch (InterruptedException | SQLException | IOException  ex) {
+                        try {
+                            this.PrintLog(ex.getMessage().toString());
+                        } catch (InterruptedException ex1) {
+                            Logger.getLogger(PerfilView.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
+                        Logger.getLogger(PerfilView.class.getName()).log(Level.SEVERE, null, ex);
+                        
                     }
-                  
-              }else {
-                  
-                  this.PrintLog("===================================");
-                  this.PrintLog("Erro ao conectar ao banco de dados!");
-                  this.PrintLog("===================================");
-              }
-              
-      } catch (InterruptedException | SQLException | IOException  ex) {
-          Logger.getLogger(PerfilView.class.getName()).log(Level.SEVERE, null, ex);
-         
-      }
-       
-     } else {
-        System.out.println("No Selection ");
-    }
-   }
-          
-}//GEN-LAST:event_btnCompileActionPerformed
+                    
+                } else {
+                    System.out.println("No Selection ");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PerfilView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                        }
+
+    }//GEN-LAST:event_btnCompileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompile;
@@ -455,17 +502,20 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblDescricaoFuncional;
     private javax.swing.JLabel lblDlServiceCode;
     private javax.swing.JLabel lblDlUpdateStamp;
     private javax.swing.JLabel lblOperatorID;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlLog;
-    private javax.swing.JPanel pnlMenu;
-    private javax.swing.JPanel pnlMenu1;
     private javax.swing.JPanel pnlOfertas;
+    private javax.swing.JPanel pnlPerfil;
+    private javax.swing.JPanel pnlPerfilInside;
     private javax.swing.JPanel pnlPerfis;
+    private javax.swing.JTextArea txaDescricaoFuncional;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtDlServiceCode;
     private javax.swing.JTextField txtDlUpdateStamp;
@@ -504,17 +554,23 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
     
     
-    private Fields getFields(){
+    /**
+     * Recupera campos do formulário
+     * @return objeto do tipo <code>Fields</code> 
+     * @throws SQLException 
+     */
+    private Fields getFields() throws SQLException{
         
         Fields fields = new Fields();
         
         fields.setDlServiceCode(this.txtDlServiceCode.getText());
+        fields.setDescFuncional(this.txaDescricaoFuncional.getText());
         fields.setDlUpdateStamp(this.txtDlUpdateStamp.getText());
         fields.setOperatorID(this.txtOperatorID.getText());
         fields.setOsDesc(this.txtDescricao.getText());
+        fields.setUserName(Usuario.getFullName(user).toString());
         
         return fields;
-        
         
     }
     

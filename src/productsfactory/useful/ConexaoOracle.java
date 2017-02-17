@@ -41,7 +41,7 @@ public class ConexaoOracle {
         String driver = "oracle.jdbc.driver.OracleDriver";
         try {
             Class.forName(driver);
-            ConexaoOracle.setTnsAdmin();
+            //ConexaoOracle.setTnsAdmin();
             System.out.println("Driver carregado com sucesso !!!!");
         } catch (ClassNotFoundException e) {
             System.out.println("Driver nâo pode ser carregado!!!!");
@@ -72,6 +72,8 @@ public class ConexaoOracle {
         try {
            
         config.load(arquivoURL);
+        String user = config.getProperty("user");
+        String pswd = config.getProperty("pswd");
         
         StringBuilder banco = new StringBuilder();
         banco.append(config.getProperty("banco"));
@@ -81,12 +83,16 @@ public class ConexaoOracle {
         StringBuilder url = new StringBuilder();
         url.append("jdbc:oracle:thin:@");
         url.append(banco);
+        url.append(":");
+        url.append(config.getProperty("port"));
+        url.append(":");
+        url.append(config.getProperty("sid"));
         
             System.out.println(url);
          
             if (con == null || con.isClosed()) {
                 
-               con = DriverManager.getConnection(url.toString(),"MTAAPP6","MTAAPP6");
+               con = DriverManager.getConnection(url.toString(),user,pswd);
                System.out.println("Conectado com sucesso!"); 
             }
 

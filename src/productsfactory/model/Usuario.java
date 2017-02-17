@@ -4,6 +4,9 @@
  */
 package productsfactory.model;
 
+import java.sql.SQLException;
+import productsfactory.control.UsuarioControl;
+
 /**
  *
  * @author Daniel
@@ -85,6 +88,12 @@ public class Usuario {
 
     public void setNovaSenhaUsuario(String novaSenhaUsuario) {
         this.novaSenhaUsuario = novaSenhaUsuario;
+    }
+    
+    
+    public static Usuario getFullName(Usuario usuario) throws SQLException{
+        
+        return UsuarioControl.getNomeUsuario(usuario);
     }
     
     

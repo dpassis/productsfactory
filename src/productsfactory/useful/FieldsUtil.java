@@ -22,7 +22,7 @@ public class FieldsUtil {
      */
     public static List<String> getEdtTextByLine(String texto){
         List<String> linhas = new ArrayList<>();
-        List<String> listOffers = new ArrayList<>();
+        List<String> listText = new ArrayList<>();
         String[] breakLine = null ;
        
         linhas.add(texto);
@@ -30,10 +30,10 @@ public class FieldsUtil {
         for(int i = 0;i < linhas.size(); i++){
            breakLine = linhas.get(i).split("\n");
             for (String brkLine : breakLine) {
-                listOffers.add(brkLine);
+                listText.add(brkLine);
             }
         }
         
-        return listOffers;     
+        return listText;     
     }
 }

@@ -28,9 +28,9 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuBSR">
+        <Menu class="javax.swing.JMenu" name="jMenuScriptGen">
           <Properties>
-            <Property name="text" type="java.lang.String" value="BSR&apos;s"/>
+            <Property name="text" type="java.lang.String" value="Script Generator"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemState">
@@ -38,7 +38,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/productsfactory/images/script_menu_item.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Generate State"/>
+                <Property name="text" type="java.lang.String" value="Generate INSERT CSM_OFFER_STATE"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemStateActionPerformed"/>
@@ -49,39 +49,43 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/productsfactory/images/script_menu_item.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Generate Perfil"/>
+                <Property name="text" type="java.lang.String" value="Generate INSERT CSM_OFFER_SALE_CHANNEL"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPerfilActionPerformed"/>
               </Events>
             </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuConsultas">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Consultas"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiLogEntradaSaidaUsuario">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAnatel">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/productsfactory/images/log_menu_item.png"/>
+                  <Image iconType="3" name="/productsfactory/images/script_menu_item.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Log Acesso Usu&#xe1;rio"/>
+                <Property name="text" type="java.lang.String" value="Generate INSERT BL7_OFFER_ANATEL"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiLogEntradaSaidaUsuarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAnatelActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiLogAcoesUsuario">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemOcParam">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/productsfactory/images/help.png"/>
+                  <Image iconType="3" name="/productsfactory/images/script_menu_item.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Log A&#xe7;&#xf5;es Usu&#xe1;rio"/>
+                <Property name="text" type="java.lang.String" value="Generate  UPDATE BILL_OFFER_OC_PARAM"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiLogAcoesUsuarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemOcParamActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCusttp">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/productsfactory/images/script_menu_item.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Generate INSERT CSM_OFFER_CUSTTP"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCusttpActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -111,17 +115,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiTrocaUsuarioActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiEnviaMail">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/productsfactory/images/email_menu_item.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Enviar Email"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEnviaMailActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiSair">
@@ -211,25 +204,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="373" pref="373" max="373" attributes="0"/>
-                              <Component id="lblLogoMenu" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblUsuario" min="-2" pref="267" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblHoje" min="-2" pref="348" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="373" pref="373" max="373" attributes="0"/>
+                          <Component id="lblLogoMenu" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblTarefas" pref="369" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="644" max="-2" attributes="0"/>
+                          <Component id="lblUsuario" min="-2" pref="267" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblHoje" min="-2" pref="348" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
+                  <EmptySpace pref="216" max="32767" attributes="0"/>
                   <Component id="lblRelogio" min="-2" pref="106" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
@@ -242,8 +228,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
                           <Component id="lblLogoMenu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="72" max="32767" attributes="0"/>
-                          <Component id="lblTarefas" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="526" max="32767" attributes="0"/>
@@ -307,29 +292,6 @@
             <Property name="text" type="java.lang.String" value="   "/>
             <Property name="toolTipText" type="java.lang.String" value="Usu&#xe1;rio conectado ao Sistema"/>
           </Properties>
-        </Component>
-        <Component class="interfacegrafica.dpa.labels.LabelDPA" name="lblTarefas">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder justification="2" title="Tarefas do Dia">
-                  <Font PropertyName="font" name="Tahoma" size="13" style="1"/>
-                </TitledBorder>
-              </Border>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new Color(185, 211, 238)" type="code"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/productsfactory/images/tarefa_menu_item.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="   "/>
-            <Property name="toolTipText" type="java.lang.String" value="Clique aqui para controlar suas tarefas"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblTarefasMouseClicked"/>
-          </Events>
         </Component>
         <Component class="interfacegrafica.dpa.labels.LabelDPA" name="lblRelogio">
           <Properties>

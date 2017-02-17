@@ -22,6 +22,7 @@ import productsfactory.control.UsuarioControl;
 
 import productsfactory.model.Usuario;
 import productsfactory.useful.Conexao;
+import productsfactory.useful.ConexaoMySql;
 
 import productsfactory.useful.Manutencao;
 import productsfactory.useful.TelaUteis;
@@ -36,6 +37,8 @@ public class Login extends javax.swing.JFrame implements KeyListener {
     /** Creates new form Login */
     public Login() {
         initComponents();
+        this.tfUsuario.setText("daniel.assis");
+        this.pwfSenha.setText("daniel.assis");
         inicializa();
     }
 
@@ -227,7 +230,7 @@ private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
      
         try {
             Menu menu = new Menu();
-             menu.setVisible(true);
+            menu.setVisible(true);
             menu.setExtendedState(MAXIMIZED_BOTH);
 
 
@@ -323,7 +326,8 @@ private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
      */
     private void conectaSistema() throws SQLException, ParseException {
         Manutencao manutencao = new Manutencao();
-
+        
+       
 
         if (!manutencao.userManutencao(this.tfUsuario.getText(), String.valueOf(this.pwfSenha.getPassword()))) {
 
@@ -333,18 +337,10 @@ private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
                 JOptionPane.showMessageDialog(this, "Campo Usuário e Senha Obrigatórios", "Atenção!", 2);
             } else {
 
-                con = Conexao.getInstance().getConnection(this.getDadosUsuario());
+                con = ConexaoMySql.getInstance().getConnection(this.getDadosUsuario());
 
                 if (con != null) {
-                    if (UsuarioControl.verificarSenha(this.getDadosUsuario())) {
-//                        PontoFuncionario pontoFuncionario = new PontoFuncionario();
-//
-//                        pontoFuncionario.setUsuario(UsuarioControl.getUsuario(this.getDadosUsuario()));
-//                        pontoFuncionario.setDataCompleta(ControleUsuario.getDataCompleta());
-//                        pontoFuncionario.setDataPonto(ControleUsuario.getData());
-//                        pontoFuncionario.setHoraPonto(ControleUsuario.getHora());
-//                        pontoFuncionario.setTipoPonto("Entrada no Sistema");
-//                        ControleUsuario.inserePontoFuncionario(pontoFuncionario);
+                    if (UsuarioControl.verificarSenhaMySql(this.getDadosUsuario())) {
 
                         Menu menu = new Menu(UsuarioControl.getUsuario(this.getDadosUsuario()));
                         menu.setVisible(true);
@@ -390,7 +386,7 @@ private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
      * Faz as inicializaçõe do Sistema
      */
     private void inicializa() {
-
+        
         TelaUteis.locateOnScreen(this, 540, 360);
 
     }

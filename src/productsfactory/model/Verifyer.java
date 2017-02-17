@@ -9,17 +9,42 @@ package productsfactory.model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import productsfactory.control.BlOcParamControl;
 import productsfactory.control.OfferControl;
+import productsfactory.control.PerfilControl;
 
 /**
  *
  * @author Daniel Paulo
  */
 public class Verifyer {
-    
+    /**
+     * 
+     * @param offers
+     * @return
+     * @throws SQLException 
+     */
     public static List<Offers> verifyOfferExists(List<String> offers) throws SQLException{
         
         return OfferControl.verifyOfferExists(offers);
+        
+    }
+    
+    public static List<BlOcParamModel> verifyOfferBlOcParamExists(List<String> offer) throws SQLException{
+        
+        return BlOcParamControl.verifyOfferBlOcParamExists(offer);
+    }
+    
+    
+     /**
+     * 
+     * @param perfis
+     * @return
+     * @throws SQLException 
+     */
+    public static List<PerfilModel> verifyPerfilExists(List<String> perfis) throws SQLException{
+        
+        return PerfilControl.verifyPerfilExists(perfis);
         
     }
     

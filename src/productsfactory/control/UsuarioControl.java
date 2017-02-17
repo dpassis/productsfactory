@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import productsfactory.model.Usuario;
 import productsfactory.useful.Conexao;
+import productsfactory.useful.ConexaoMySql;
 
 /**
  *
@@ -256,7 +257,7 @@ public class UsuarioControl {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        con = Conexao.getInstance().getConnection(Usuario.getUserInstance());
+        con = ConexaoMySql.getInstance().getConnection(Usuario.getUserInstance());
 
         System.out.println("conectado e preparando listagem");
             
@@ -264,25 +265,70 @@ public class UsuarioControl {
       
         try {
 
-            pstmt = con.prepareStatement("SELECT codigo_usuario, nome_usuario, senha_usuario, "
-                    + " categoria_usuario, email_usuario, status_usuario FROM "
-                    + "tb_usuario  WHERE nome_usuario = (?);");
+            pstmt = con.prepareStatement("SELECT users.id, users.login, users.hashed_password, users.status, users.admin, email_addresses.address \n" +
+                                        "FROM users INNER JOIN email_addresses ON(users.id = email_addresses.user_id)\n" +
+                        "WHERE users.login = ?");
             pstmt.setString(1, user.getNomeUsuario());
 
             rs = pstmt.executeQuery();
             
             rs.next();
 
-                usuario.setCodigoUsuario(rs.getInt("codigo_usuario"));
-                usuario.setNomeUsuario(rs.getString("nome_usuario"));
-                usuario.setSenhaUsuario(rs.getString("senha_usuario"));
-                usuario.setEmailUsuario(rs.getString("email_usuario"));
-                usuario.setStatusUsuario(rs.getString("status_usuario"));
-                usuario.setCategoriaUsuario(rs.getString("categoria_usuario"));
+                usuario.setCodigoUsuario(rs.getInt("id"));
+                usuario.setNomeUsuario(rs.getString("login"));
+                usuario.setSenhaUsuario(rs.getString("hashed_password"));
+                usuario.setEmailUsuario(rs.getString("address"));
+                usuario.setStatusUsuario(rs.getString("status"));
+                usuario.setCategoriaUsuario(rs.getString("admin"));
 
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            return null;
+
+        } finally {
+            rs.close();
+            pstmt.close();
+
+        }
+        return usuario;
+    }
+     
+     
+     
+     /**
+      * Recupera Nome e Sobrenome do Usuário 
+      * a partir da base do Redmine
+      * 
+      * @param user
+      * @return User FistName e LastName
+      * @throws SQLException 
+      */
+     public static Usuario getNomeUsuario(Usuario user) throws SQLException {
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        con = ConexaoMySql.getInstance().getConnection(Usuario.getUserInstance());
+
+        System.out.println("conectado e preparando listagem");
+            
+         Usuario usuario = new Usuario();
+      
+        try {
+
+            pstmt = con.prepareStatement("SELECT  users.firstname, users.lastname " +
+                                        "FROM users " +
+                                        "WHERE users.login = ?");
+            pstmt.setString(1, user.getNomeUsuario());
+
+            rs = pstmt.executeQuery();
+            
+            rs.next();
+
+                usuario.setNomeUsuario(rs.getString("firstname")+" "+rs.getString("lastname"));
              
 
-           
         } catch (SQLException e) {
 
             System.out.println(e.getMessage());
@@ -446,6 +492,34 @@ public class UsuarioControl {
 
 
     }
+    
+     public static boolean verificarSenhaMySql(Usuario usuario) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        con = ConexaoMySql.getInstance().getConnection(Usuario.getUserInstance());
+
+        pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ? AND hashed_password = sha1(concat(salt,sha1(?)))"
+                + " AND status = ?;");
+        pstmt.setString(1, usuario.getNomeUsuario());
+        pstmt.setString(2, usuario.getSenhaUsuario());
+        pstmt.setInt(3,1);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            rs.close();
+            pstmt.close();
+        } else {
+            rs.close();
+            pstmt.close();
+            return false;
+        }
+        return true;
+
+
+    }
+    
+    
 
     /**
      * Cria um nova ROLE no banco de dados

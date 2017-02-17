@@ -19,7 +19,6 @@ public class ProductsFactory {
      */
     public static void main(String[] args) throws SQLException {
         
-        new SplashTeste().animar();  
         Login login = new Login();
         login.setVisible(true);
         

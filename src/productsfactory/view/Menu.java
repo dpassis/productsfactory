@@ -26,9 +26,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import productsfactory.control.TarefasControl;
 import productsfactory.model.Usuario;
-import productsfactory.useful.Conexao;
+import productsfactory.useful.ConexaoMySql;
 import productsfactory.useful.Relogio;
 
 /**
@@ -67,21 +66,19 @@ public class Menu extends javax.swing.JFrame {
         lblLogoMenu = new interfacegrafica.dpa.labels.LabelDPA();
         lblHoje = new interfacegrafica.dpa.labels.LabelDPA();
         lblUsuario = new interfacegrafica.dpa.labels.LabelDPA();
-        lblTarefas = new interfacegrafica.dpa.labels.LabelDPA();
         lblRelogio = new interfacegrafica.dpa.labels.LabelDPA();
         jMenuBarMenuPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
-        jMenuBSR = new javax.swing.JMenu();
+        jMenuScriptGen = new javax.swing.JMenu();
         jMenuItemState = new javax.swing.JMenuItem();
         jMenuItemPerfil = new javax.swing.JMenuItem();
-        jMenuConsultas = new javax.swing.JMenu();
-        jmiLogEntradaSaidaUsuario = new javax.swing.JMenuItem();
-        jmiLogAcoesUsuario = new javax.swing.JMenuItem();
+        jMenuItemAnatel = new javax.swing.JMenuItem();
+        jMenuItemOcParam = new javax.swing.JMenuItem();
+        jMenuItemCusttp = new javax.swing.JMenuItem();
         jMenuUsuario = new javax.swing.JMenu();
         jmiAlterarSenha = new javax.swing.JMenuItem();
         jmiTrocaUsuario = new javax.swing.JMenuItem();
-        jmiEnviaMail = new javax.swing.JMenuItem();
         jmiSair = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jmiAjuda = new javax.swing.JMenuItem();
@@ -107,18 +104,6 @@ public class Menu extends javax.swing.JFrame {
         lblUsuario.setText("   ");
         lblUsuario.setToolTipText("Usuário conectado ao Sistema");
 
-        lblTarefas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tarefas do Dia", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
-        lblTarefas.setForeground(new Color(185, 211, 238));
-        lblTarefas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTarefas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/tarefa_menu_item.png"))); // NOI18N
-        lblTarefas.setText("   ");
-        lblTarefas.setToolTipText("Clique aqui para controlar suas tarefas");
-        lblTarefas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblTarefasMouseClicked(evt);
-            }
-        });
-
         lblRelogio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Relógio", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
         lblRelogio.setForeground(new Color(185, 211, 238));
         lblRelogio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -132,20 +117,15 @@ public class Menu extends javax.swing.JFrame {
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlMenuLayout.createSequentialGroup()
-                            .addGap(373, 373, 373)
-                            .addComponent(lblLogoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblHoje, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGap(373, 373, 373)
+                        .addComponent(lblLogoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                        .addGap(644, 644, 644)))
-                .addGap(207, 207, 207)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblHoje, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
                 .addComponent(lblRelogio, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -156,8 +136,7 @@ public class Menu extends javax.swing.JFrame {
                     .addGroup(pnlMenuLayout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addComponent(lblLogoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(lblTarefas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
                         .addContainerGap(526, Short.MAX_VALUE)
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -188,49 +167,54 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBarMenuPrincipal.add(jMenuCadastros);
 
-        jMenuBSR.setText("BSR's");
+        jMenuScriptGen.setText("Script Generator");
 
         jMenuItemState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/script_menu_item.png"))); // NOI18N
-        jMenuItemState.setText("Generate State");
+        jMenuItemState.setText("Generate INSERT CSM_OFFER_STATE");
         jMenuItemState.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemStateActionPerformed(evt);
             }
         });
-        jMenuBSR.add(jMenuItemState);
+        jMenuScriptGen.add(jMenuItemState);
 
         jMenuItemPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/script_menu_item.png"))); // NOI18N
-        jMenuItemPerfil.setText("Generate Perfil");
+        jMenuItemPerfil.setText("Generate INSERT CSM_OFFER_SALE_CHANNEL");
         jMenuItemPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPerfilActionPerformed(evt);
             }
         });
-        jMenuBSR.add(jMenuItemPerfil);
+        jMenuScriptGen.add(jMenuItemPerfil);
 
-        jMenuBarMenuPrincipal.add(jMenuBSR);
-
-        jMenuConsultas.setText("Consultas");
-
-        jmiLogEntradaSaidaUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/log_menu_item.png"))); // NOI18N
-        jmiLogEntradaSaidaUsuario.setText("Log Acesso Usuário");
-        jmiLogEntradaSaidaUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAnatel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/script_menu_item.png"))); // NOI18N
+        jMenuItemAnatel.setText("Generate INSERT BL7_OFFER_ANATEL");
+        jMenuItemAnatel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiLogEntradaSaidaUsuarioActionPerformed(evt);
+                jMenuItemAnatelActionPerformed(evt);
             }
         });
-        jMenuConsultas.add(jmiLogEntradaSaidaUsuario);
+        jMenuScriptGen.add(jMenuItemAnatel);
 
-        jmiLogAcoesUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/help.png"))); // NOI18N
-        jmiLogAcoesUsuario.setText("Log Ações Usuário");
-        jmiLogAcoesUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemOcParam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/script_menu_item.png"))); // NOI18N
+        jMenuItemOcParam.setText("Generate  UPDATE BILL_OFFER_OC_PARAM");
+        jMenuItemOcParam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiLogAcoesUsuarioActionPerformed(evt);
+                jMenuItemOcParamActionPerformed(evt);
             }
         });
-        jMenuConsultas.add(jmiLogAcoesUsuario);
+        jMenuScriptGen.add(jMenuItemOcParam);
 
-        jMenuBarMenuPrincipal.add(jMenuConsultas);
+        jMenuItemCusttp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/script_menu_item.png"))); // NOI18N
+        jMenuItemCusttp.setText("Generate INSERT CSM_OFFER_CUSTTP");
+        jMenuItemCusttp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCusttpActionPerformed(evt);
+            }
+        });
+        jMenuScriptGen.add(jMenuItemCusttp);
+
+        jMenuBarMenuPrincipal.add(jMenuScriptGen);
 
         jMenuUsuario.setText("Usuário");
 
@@ -251,15 +235,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenuUsuario.add(jmiTrocaUsuario);
-
-        jmiEnviaMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/email_menu_item.png"))); // NOI18N
-        jmiEnviaMail.setText("Enviar Email");
-        jmiEnviaMail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiEnviaMailActionPerformed(evt);
-            }
-        });
-        jMenuUsuario.add(jmiEnviaMail);
 
         jmiSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productsfactory/images/logout.png"))); // NOI18N
         jmiSair.setText("Sair");
@@ -318,7 +293,7 @@ private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     int option = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja encerrar o Sistema?", "Pergunta Sistema", JOptionPane.YES_NO_OPTION, 3);
 
     if (option == 0) {
-        Conexao.getInstance().destroy();
+        ConexaoMySql.getInstance().destroy();
         System.exit(0);
     }
     if (option == 1) {
@@ -333,16 +308,8 @@ private void jmiTrocaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//G
     if (option == 0) {
 
         try {
-//            PontoFuncionario pontoFuncionario = new PontoFuncionario();
-//
-//            pontoFuncionario.setUsuario(user);
-//            pontoFuncionario.setDataCompleta(ControleUsuario.getDataCompleta());
-//            pontoFuncionario.setDataPonto(ControleUsuario.getData());
-//            pontoFuncionario.setHoraPonto(ControleUsuario.getHora());
-//            pontoFuncionario.setTipoPonto("Troca de Usuário");
-//            ControleUsuario.inserePontoFuncionario(pontoFuncionario);
 
-            Conexao.getInstance().destroy();
+            ConexaoMySql.getInstance().destroy();
             Menu.this.dispose();
 
 
@@ -363,33 +330,6 @@ private void jmiTrocaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void jMenuCadastrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrosActionPerformed
 }//GEN-LAST:event_jMenuCadastrosActionPerformed
-
-private void jmiEnviaMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEnviaMailActionPerformed
-// TODO add your handling code here:
-    EnviaMail enviaMail = EnviaMail.getDialogEnviaMailFrame(this, "", user);
-    enviaMail.setVisible(true);
-
-}//GEN-LAST:event_jmiEnviaMailActionPerformed
-
-private void jmiLogEntradaSaidaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLogEntradaSaidaUsuarioActionPerformed
-//    try {
-//        // TODO add your handling code here:
-//        LogPontoFuncionario log = LogPontoFuncionario.getDialogLogPonto(this, user);
-//        log.setVisible(true);
-//    } catch (SQLException ex) {
-//        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-}//GEN-LAST:event_jmiLogEntradaSaidaUsuarioActionPerformed
-
-private void jmiLogAcoesUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLogAcoesUsuarioActionPerformed
-    try {
-        // TODO add your handling code here:
-        LogAcoesUsuario log = LogAcoesUsuario.getDialogLogAcoes(this, user);
-        log.setVisible(true);
-    } catch (SQLException ex) {
-        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}//GEN-LAST:event_jmiLogAcoesUsuarioActionPerformed
 
 private void jmiAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAlterarSenhaActionPerformed
 // TODO add your handling code here:
@@ -419,51 +359,61 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
 }//GEN-LAST:event_jmiAjudaActionPerformed
 
-    private void lblTarefasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTarefasMouseClicked
-        // TODO add your handling code here:
-        try {
-            TarefasView tarefasView = TarefasView.getDialogTarefas(this, user);
-            tarefasView.setVisible(true);
-            this.tarefasDia();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_lblTarefasMouseClicked
-
     private void jMenuItemStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStateActionPerformed
         // TODO add your handling code here:
-        StateView stateView  = new StateView(this);
+        StateView stateView  = new StateView(this,user);
+        stateView.setExtendedState(MAXIMIZED_BOTH);
         stateView.setVisible(true);
     }//GEN-LAST:event_jMenuItemStateActionPerformed
 
     private void jMenuItemPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPerfilActionPerformed
         // TODO add your handling code here:
-        PerfilView perfilView = new PerfilView(this);
+        PerfilView perfilView = new PerfilView(this,user);
+        perfilView.setExtendedState(MAXIMIZED_BOTH);
         perfilView.setVisible(true);
     }//GEN-LAST:event_jMenuItemPerfilActionPerformed
 
+    private void jMenuItemAnatelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnatelActionPerformed
+        // TODO add your handling code here:
+        AnatelView anatelView = new AnatelView(this,user);
+        anatelView.setExtendedState(MAXIMIZED_BOTH);
+        anatelView.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAnatelActionPerformed
+
+    private void jMenuItemOcParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOcParamActionPerformed
+        // TODO add your handling code here:
+        BlOcParamView blOcParamView = new BlOcParamView(this);
+        blOcParamView.setExtendedState(MAXIMIZED_BOTH);
+        blOcParamView.setVisible(true);
+    }//GEN-LAST:event_jMenuItemOcParamActionPerformed
+
+    private void jMenuItemCusttpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCusttpActionPerformed
+        // TODO add your handling code here:
+        CusttpView custtpView = new CusttpView(this);
+        custtpView.setExtendedState(MAXIMIZED_BOTH);
+        custtpView.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCusttpActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenuBSR;
     private javax.swing.JMenuBar jMenuBarMenuPrincipal;
     private javax.swing.JMenu jMenuCadastros;
-    private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenu jMenuHelp;
+    private javax.swing.JMenuItem jMenuItemAnatel;
+    private javax.swing.JMenuItem jMenuItemCusttp;
+    private javax.swing.JMenuItem jMenuItemOcParam;
     private javax.swing.JMenuItem jMenuItemPerfil;
     private javax.swing.JMenuItem jMenuItemState;
+    private javax.swing.JMenu jMenuScriptGen;
     private javax.swing.JMenu jMenuUsuario;
     private javax.swing.JMenuItem jmiAbout;
     private javax.swing.JMenuItem jmiAjuda;
     private javax.swing.JMenuItem jmiAlterarSenha;
-    private javax.swing.JMenuItem jmiEnviaMail;
-    private javax.swing.JMenuItem jmiLogAcoesUsuario;
-    private javax.swing.JMenuItem jmiLogEntradaSaidaUsuario;
     private javax.swing.JMenuItem jmiSair;
     private javax.swing.JMenuItem jmiTrocaUsuario;
     private javax.swing.JMenuItem jmiUsuarios;
     private interfacegrafica.dpa.labels.LabelDPA lblHoje;
     private interfacegrafica.dpa.labels.LabelDPA lblLogoMenu;
     private interfacegrafica.dpa.labels.LabelDPA lblRelogio;
-    private interfacegrafica.dpa.labels.LabelDPA lblTarefas;
     private interfacegrafica.dpa.labels.LabelDPA lblUsuario;
     private interfacegrafica.dpa.panels.PanelDPA pnlMenu;
     // End of variables declaration//GEN-END:variables
@@ -492,7 +442,7 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //                    pontoFuncionario.setTipoPonto("Saída do Sistema");
                     if(!user.getCategoriaUsuario().equals("manut")){
                         //ControleUsuario.inserePontoFuncionario(pontoFuncionario);
-                        Conexao.getInstance().destroy();
+                        ConexaoMySql.getInstance().destroy();
                     }
                     user = null;
                     System.gc();
@@ -507,29 +457,7 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         });
     }
 
-    /**
-     * Faz a consulta por tarefas do usuário do
-     * dia corrente
-     * 
-     * @throws SQLException 
-     */
-    public void tarefasDia() throws SQLException {
-
-        Integer contTarefas = TarefasControl.listaTarefasDia(new Date(), new Date(), user);
-
-        if (contTarefas > 0) {
-            lblTarefas.setForeground(new Color(255, 114, 86));
-            this.lblTarefas.setText("Você tem " + contTarefas + " tarefa(s) para hoje.");
-
-            System.out.println("Você tem " + contTarefas + " tarefa(s) para hoje.");
-
-        } else {
-            lblTarefas.setForeground(new Color(144, 238, 144));
-
-            this.lblTarefas.setText("Você tem " + contTarefas + " tarefa(s) para hoje.");
-            System.out.println("Você tem " + contTarefas + " tarefa(s) para hoje.");
-        }
-    }
+    
 
     /**
      * Carrega os itens de Menu de acordo com 
@@ -539,28 +467,16 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
         Properties config = new Properties();
         try {
-
-            if (user.getCategoriaUsuario().equals("userSystem")) {
+            //normal user
+            if (user.getCategoriaUsuario().equals("0")) {
                 InputStream configuracao = getClass().getResourceAsStream("/productsfactory/config/usersystem.properties");
                 config.load(configuracao);
-
-            } else if (user.getCategoriaUsuario().equals("admSystem")) {
+            //admin
+            } else if (user.getCategoriaUsuario().equals("1")) {
 
                 InputStream configuracao = getClass().getResourceAsStream("/productsfactory/config/admsystem.properties");
                 config.load(configuracao);
                 
-            } else if (user.getCategoriaUsuario().equals("manut")) {
-
-                InputStream configuracao = getClass().getResourceAsStream("/productsfactory/config/manut.properties");
-                config.load(configuracao);
-            } else if (user.getCategoriaUsuario().equals("root")) {
-
-                InputStream configuracao = getClass().getResourceAsStream("/productsfactory/config/root.properties");
-                config.load(configuracao);
-            }else if (user.getCategoriaUsuario().equals("professor")) {
-
-                InputStream configuracao = getClass().getResourceAsStream("/productsfactory/config/professor.properties");
-                config.load(configuracao);
             }
 
 
@@ -568,37 +484,30 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jMenuCadastros.setVisible(Boolean.parseBoolean(config.getProperty("jMenuCadastros")));
            
             jmiUsuarios.setVisible(Boolean.parseBoolean(config.getProperty("jmiUsuarios")));
-            
-
-            /***SubRelatorios***/
-            jMenuConsultas.setVisible(Boolean.parseBoolean(config.getProperty("jMenuConsultas")));
-            /*****SubConsultas****/
-            jmiLogEntradaSaidaUsuario.setVisible(Boolean.parseBoolean(config.getProperty("jmiLogEntradaSaidaUsuario")));
-            jmiLogAcoesUsuario.setVisible(Boolean.parseBoolean(config.getProperty("jmiLogAcoesUsuario")));
-            
 
             /****Menu Usuario****/
             jMenuUsuario.setVisible(Boolean.parseBoolean(config.getProperty("jMenuUsuario")));
             /***SubUsuarios***/
             jmiAlterarSenha.setVisible(Boolean.parseBoolean(config.getProperty("jmiAlterarSenha")));
             jmiTrocaUsuario.setVisible(Boolean.parseBoolean(config.getProperty("jmiTrocaUsuario")));
-            jmiEnviaMail.setVisible(Boolean.parseBoolean(config.getProperty("jmiEnviaMail")));
             jmiSair.setVisible(Boolean.parseBoolean(config.getProperty("jmiSair")));
 
 
             /****Menu BSRS's***/
             
-            jMenuBSR.setVisible(Boolean.parseBoolean(config.getProperty("jMenuBSR")));
+            jMenuScriptGen.setVisible(Boolean.parseBoolean(config.getProperty("jMenuBSR")));
+            
+            jMenuItemState.setVisible(Boolean.parseBoolean(config.getProperty("jmiState")));
+            jMenuItemAnatel.setVisible(Boolean.parseBoolean(config.getProperty("jmiAnatel")));
+            jMenuItemCusttp.setVisible(Boolean.parseBoolean(config.getProperty("jmiCusttp")));
+            jMenuItemOcParam.setVisible(Boolean.parseBoolean(config.getProperty("jmiOcParam")));
+            jMenuItemPerfil.setVisible(Boolean.parseBoolean(config.getProperty("jmiPerfil")));
        
             /****Menu Help****/
             jMenuHelp.setVisible(Boolean.parseBoolean(config.getProperty("jMenuHelp")));
             /****SubHelp******/
             jmiAbout.setVisible(Boolean.parseBoolean(config.getProperty("jmiAbout")));
             jmiAjuda.setVisible(Boolean.parseBoolean(config.getProperty("jmiAjuda")));
-
-            /*****Tarefas*****/
-            lblTarefas.setVisible(Boolean.parseBoolean(config.getProperty("lblTarefas")));
-
 
 
         } catch (IOException ex) {
@@ -638,9 +547,6 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         this.lblHoje.setText(this.getDateTime());
         this.lblUsuario.setText(user.getNomeUsuario());
         this.mostrarHora();
-        if(!user.getCategoriaUsuario().equals("manut")){
-         this.tarefasDia();
-        }
         this.desenhaMenu();
 
     }
