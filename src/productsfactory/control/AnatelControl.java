@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import productsfactory.model.AnatelModel;
 import productsfactory.model.Fields;
@@ -57,12 +58,9 @@ public class AnatelControl {
         
         
         for (int i = 0; i < offers.size(); i++) {
-            inserts.append("--Inserts para a oferta ").append(offers.get(i).getSocCD()).append(" - ").append(offers.get(i).getSocName()).append(" e Código Anatel").append(anatelCodes.get(i).getCodigoAnatel()).append("\n");
-            
-           
+            inserts.append("--Inserts para a oferta ").append(offers.get(i).getSocCD()).append(" - ").append(offers.get(i).getSocName()).append(" e Código Anatel ").append(anatelCodes.get(i).getCodigoAnatel()).append("\n");
             
             for (int j = 0; j < states.size(); j++) {
-                
                 
                     pstmt = con.prepareStatement("SELECT " +
                                                     "  anatel.offer_cd, anatel.geo_zone,anatel.anatel_cd " +
@@ -79,21 +77,14 @@ public class AnatelControl {
                                                     "   anatel.geo_zone");
                     pstmt.setString(1, offers.get(i).getSocCD());
                     pstmt.setString(2, states.get(j).getState());
-                    pstmt.setString(3, anatelCodes.get(j).getCodigoAnatel());
+                    pstmt.setString(3, anatelCodes.get(i).getCodigoAnatel());
                     rs = pstmt.executeQuery();
                     
-                 if (rs.next()) {
-                        //do nothing 
-                 } else {   
-                
+                 if (!rs.next()) {
                     inserts.append("INSERT INTO MTAREFWORK.BL7_OFFER_ANATEL (OFFER_CD, GEO_ZONE, SYS_CREATION_DATE, SYS_UPDATE_DATE, OPERATOR_ID, APPLICATION_ID, DL_SERVICE_CODE, DL_UPDATE_STAMP, ANATEL_CD) VALUES (").append(offers.get(i).getSocCD()).append(",'").append(states.get(j).getState()).append("',SYSDATE,NULL,").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(", '").append(anatelCodes.get(i).getCodigoAnatel()).append("');\n");
                     countQtdeInserts++;
                     countQtdeInsertsTotal++;
                 }
-                
-                
-                
-                
             }
             
             inserts.append("-- ").append(countQtdeInserts).append(" registros inseridos\n\n");
@@ -168,13 +159,24 @@ public class AnatelControl {
      * @param states
      * @param fields
      * @return
+     * @throws java.sql.SQLException
      */
-    public static String generateSelectAnatel(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields) {
+    public static String generateSelectAnatel(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields) throws SQLException {
 
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        con = ConexaoOracle.getInstance().getConnection();
+        
+        List<Offers> offersReal = new ArrayList<>();
+        List<AnatelModel> anatelCodesReal = new ArrayList<>();
+        List<StateModel> statesReal = new ArrayList<>();
+        
         StringBuilder select = new StringBuilder();
         int countOffers = 1;
         int countStates = 1;
         int countAnatelCodes = 1;
+        int countResult = 0;
 
         select.append("/************************************************************************************************************************\n");
         select.append("*@Autor: ").append(fields.getUserName()).append("\n");
@@ -190,8 +192,46 @@ public class AnatelControl {
                 + "WHERE \n"
                 + "    anatel.offer_cd \n"
                 + "IN \n  (\n");
-        for (Offers ofertas : offers) {
-            if (offers.size() == countOffers) {
+        
+        for (int i = 0; i < offers.size(); i++) {
+            
+            for (int j = 0; j < states.size(); j++) {
+                
+                    pstmt = con.prepareStatement("SELECT " +
+                                                    "  anatel.offer_cd, anatel.geo_zone,anatel.anatel_cd " +
+                                                    "FROM " +
+                                                    "   mtaappc.bl7_offer_anatel@bcv_fm anatel " +
+                                                    "WHERE " +
+                                                    "    anatel.offer_cd = (?) " +
+                                                    "AND " +
+                                                    "   anatel.geo_zone = (?) " +
+                                                    "AND " +
+                                                    "   anatel.anatel_cd =(?) " +
+                                                    "ORDER BY " +
+                                                    "   anatel.offer_cd, " +
+                                                    "   anatel.geo_zone");
+                    pstmt.setString(1, offers.get(i).getSocCD());
+                    pstmt.setString(2, states.get(j).getState());
+                    pstmt.setString(3, anatelCodes.get(i).getCodigoAnatel());
+                    rs = pstmt.executeQuery();
+                    
+                 if (!rs.next()) {
+                        countResult++;
+                        if(!offersReal.contains(offers.get(i)))
+                            offersReal.add(offers.get(i));
+                        
+                        if(!anatelCodesReal.contains(anatelCodes.get(j)))
+                            anatelCodesReal.add(anatelCodes.get(j));
+                        
+                        if(!statesReal.contains(states.get(j)))
+                            statesReal.add(states.get(j));
+                }
+            }
+        }
+        
+        
+        for (Offers ofertas : offersReal) {
+            if (offersReal.size() == countOffers) {
                 select.append("   '").append(ofertas.getSocCD()).append("'\n  )\n");
             } else {
                 select.append("   '").append(ofertas.getSocCD()).append("',\n");
@@ -203,8 +243,8 @@ public class AnatelControl {
                 + "   anatel.geo_zone \n"
                 + "IN \n  (\n");
 
-        for (StateModel estados : states) {
-            if (states.size() == countStates) {
+        for (StateModel estados : statesReal) {
+            if (statesReal.size() == countStates) {
                 select.append("   '").append(estados.getState()).append("'\n  )\n");
             } else {
                 select.append("   '").append(estados.getState()).append("',\n");
@@ -217,8 +257,8 @@ public class AnatelControl {
                 + "   anatel.anatel_cd \n"
                 + "IN \n  (\n");
         
-        for (AnatelModel codes : anatelCodes) {
-            if (anatelCodes.size() == countAnatelCodes) {
+        for (AnatelModel codes : anatelCodesReal) {
+            if (anatelCodesReal.size() == countAnatelCodes) {
                 select.append("   '").append(codes.getCodigoAnatel()).append("'\n  )\n");
             } else {
                 select.append("   '").append(codes.getCodigoAnatel()).append("',\n");
@@ -245,12 +285,21 @@ public class AnatelControl {
      * @param fields
      * @return
      */
-    public static String generateSelectAnatelRollback(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields) {
-
+    public static String generateSelectAnatelRollback(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        con = ConexaoOracle.getInstance().getConnection();
+        
+        List<Offers> offersReal = new ArrayList<>();
+        List<AnatelModel> anatelCodesReal = new ArrayList<>();
+        List<StateModel> statesReal = new ArrayList<>();
+        
         StringBuilder select = new StringBuilder();
         int countOffers = 1;
         int countStates = 1;
         int countAnatelCodes = 1;
+        int countResult = 0;
 
         select.append("/*****************************************************************************************\n");
         select.append("*@Autor: ").append(fields.getUserName()).append("\n");
@@ -266,8 +315,47 @@ public class AnatelControl {
                 + "WHERE \n"
                 + "    anatel.offer_cd \n"
                 + "IN \n  (\n");
-        for (Offers ofertas : offers) {
-            if (offers.size() == countOffers) {
+        
+        for (int i = 0; i < offers.size(); i++) {
+            
+            for (int j = 0; j < states.size(); j++) {
+                
+                    pstmt = con.prepareStatement("SELECT " +
+                                                    "  anatel.offer_cd, anatel.geo_zone,anatel.anatel_cd " +
+                                                    "FROM " +
+                                                    "   mtaappc.bl7_offer_anatel@bcv_fm anatel " +
+                                                    "WHERE " +
+                                                    "    anatel.offer_cd = (?) " +
+                                                    "AND " +
+                                                    "   anatel.geo_zone = (?) " +
+                                                    "AND " +
+                                                    "   anatel.anatel_cd =(?) " +
+                                                    "ORDER BY " +
+                                                    "   anatel.offer_cd, " +
+                                                    "   anatel.geo_zone");
+                    pstmt.setString(1, offers.get(i).getSocCD());
+                    pstmt.setString(2, states.get(j).getState());
+                    pstmt.setString(3, anatelCodes.get(i).getCodigoAnatel());
+                    rs = pstmt.executeQuery();
+                    
+                 if (!rs.next()) {
+                        countResult++;
+                        if(!offersReal.contains(offers.get(i)))
+                            offersReal.add(offers.get(i));
+                        
+                        if(!anatelCodesReal.contains(anatelCodes.get(j)))
+                            anatelCodesReal.add(anatelCodes.get(j));
+                        
+                        if(!statesReal.contains(states.get(j)))
+                            statesReal.add(states.get(j));
+                }
+            }
+            
+        }
+        
+        
+        for (Offers ofertas : offersReal) {
+            if (offersReal.size() == countOffers) {
                 select.append("   '").append(ofertas.getSocCD()).append("'\n  )\n");
             } else {
                 select.append("   '").append(ofertas.getSocCD()).append("',\n");
@@ -279,8 +367,8 @@ public class AnatelControl {
                 + "   anatel.geo_zone \n"
                 + "IN \n  (\n");
 
-        for (StateModel estados : states) {
-            if (states.size() == countStates) {
+        for (StateModel estados : statesReal) {
+            if (statesReal.size() == countStates) {
                 select.append("   '").append(estados.getState()).append("'\n  )\n");
             } else {
                 select.append("   '").append(estados.getState()).append("',\n");
@@ -293,8 +381,8 @@ public class AnatelControl {
                 + "   anatel.anatel_cd \n"
                 + "IN \n  (\n");
         
-        for (AnatelModel codes : anatelCodes) {
-            if (anatelCodes.size() == countAnatelCodes) {
+        for (AnatelModel codes : anatelCodesReal) {
+            if (anatelCodesReal.size() == countAnatelCodes) {
                 select.append("   '").append(codes.getCodigoAnatel()).append("'\n  )\n");
             } else {
                 select.append("   '").append(codes.getCodigoAnatel()).append("',\n");
@@ -306,7 +394,7 @@ public class AnatelControl {
         select.append("ORDER BY \n"
                 + "   anatel.offer_cd,\n"
                 + "   anatel.geo_zone;\n");
-        select.append("-- ").append("0 registros selecionados no total\n\n");
+        select.append("-- ").append(((countOffers-1) * (countStates-1)) - countResult).append(" registros selecionados no total\n\n");
         System.out.println(select.toString());
 
         return select.toString();

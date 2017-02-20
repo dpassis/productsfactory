@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
@@ -190,8 +191,15 @@ public class StateControl {
      * @param fields
      * @return
      */
-    public static String generateSelectState(List<Offers> offers, List<StateModel> states, Fields fields) {
-
+    public static String generateSelectState(List<Offers> offers, List<StateModel> states, Fields fields) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        con = ConexaoOracle.getInstance().getConnection();
+        
+        List<Offers> offersReal = new ArrayList<>();
+        List<StateModel> statesReal = new ArrayList<>();
+        
         StringBuilder select = new StringBuilder();
         int countOffers = 1;
         int countStates = 1;
@@ -203,6 +211,31 @@ public class StateControl {
         select.append("* ").append(fields.getDlServiceCode()).append(fields.getDlUpdateStamp()).append(" - ").append(fields.getOsDesc()).append(" \n");
         select.append("*****************************************************************************************/\n\n");
 
+        
+               for (int i = 0; i < offers.size(); i++) {
+
+                for (int j = 0; j < states.size(); j++) {
+
+                    pstmt = con.prepareStatement("SELECT offer.soc_cd, offer.soc_name, state.state FROM mtaappc.csm_offer_state@bcv_fm state "
+                            + "INNER JOIN  mtaappc.csm_offer@bcv_fm offer "
+                            + "ON (state.soc_cd = offer.soc_cd) WHERE offer.soc_cd = (?) AND state.state = (?)");
+                    pstmt.setString(1, offers.get(i).getSocCD());
+                    pstmt.setString(2, states.get(j).getState());
+
+                    rs = pstmt.executeQuery();
+
+                    if (!rs.next()) {
+                         if(!offersReal.contains(offers.get(i)))
+                            offersReal.add(offers.get(i));
+                        
+                        if(!statesReal.contains(states.get(j)))
+                            statesReal.add(states.get(j));
+                    }
+                }
+
+            }
+        
+        
         select.append("SELECT \n"
                 + "  state.* \n"
                 + "FROM \n"
@@ -210,8 +243,8 @@ public class StateControl {
                 + "WHERE \n"
                 + "    (state.soc_cd \n"
                 + "IN \n  (\n");
-        for (Offers ofertas : offers) {
-            if (offers.size() == countOffers) {
+        for (Offers ofertas : offersReal) {
+            if (offersReal.size() == countOffers) {
                 select.append("   '").append(ofertas.getSocCD()).append("'\n  ))\n");
             } else {
                 select.append("   '").append(ofertas.getSocCD()).append("',\n");
@@ -228,8 +261,8 @@ public class StateControl {
                 + "   state.state \n"
                 + "IN \n  (\n");
 
-        for (StateModel estados : states) {
-            if (states.size() == countStates) {
+        for (StateModel estados : statesReal) {
+            if (statesReal.size() == countStates) {
                 select.append("   '").append(estados.getState()).append("'\n  )\n");
             } else {
                 select.append("   '").append(estados.getState()).append("',\n");
@@ -256,11 +289,19 @@ public class StateControl {
      * @param fields
      * @return
      */
-    public static String generateSelectStateRollback(List<Offers> offers, List<StateModel> states, Fields fields) {
-
+    public static String generateSelectStateRollback(List<Offers> offers, List<StateModel> states, Fields fields) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        con = ConexaoOracle.getInstance().getConnection();
+        
+        List<Offers> offersReal = new ArrayList<>();
+        List<StateModel> statesReal = new ArrayList<>();
+        
         StringBuilder select = new StringBuilder();
         int countOffers = 1;
         int countStates = 1;
+        int countResult = 0;
 
         select.append("/*****************************************************************************************\n");
         select.append("*@Autor: ").append(fields.getUserName()).append("\n");
@@ -269,16 +310,41 @@ public class StateControl {
         select.append("* ").append(fields.getDlServiceCode()).append(fields.getDlUpdateStamp()).append(" - ").append(fields.getOsDesc()).append(" \n");
         select.append("*****************************************************************************************/\n\n");
 
+        for (int i = 0; i < offers.size(); i++) {
+
+                for (int j = 0; j < states.size(); j++) {
+
+                    pstmt = con.prepareStatement("SELECT offer.soc_cd, offer.soc_name, state.state FROM mtaappc.csm_offer_state@bcv_fm state "
+                            + "INNER JOIN  mtaappc.csm_offer@bcv_fm offer "
+                            + "ON (state.soc_cd = offer.soc_cd) WHERE offer.soc_cd = (?) AND state.state = (?)");
+                    pstmt.setString(1, offers.get(i).getSocCD());
+                    pstmt.setString(2, states.get(j).getState());
+
+                    rs = pstmt.executeQuery();
+
+                    if (!rs.next()) {
+                        countResult++;
+                         if(!offersReal.contains(offers.get(i)))
+                            offersReal.add(offers.get(i));
+                        
+                        if(!statesReal.contains(states.get(j)))
+                            statesReal.add(states.get(j));
+                    }
+                }
+
+            }
+        
+        
         select.append("SELECT \n"
                 + "  state.* \n"
                 + "FROM \n"
                 + "   csm_offer_state state\n"
                 + "WHERE \n"
-                + "    state.soc_cd \n"
+                + "    (state.soc_cd \n"
                 + "IN \n  (\n");
-        for (Offers ofertas : offers) {
-            if (offers.size() == countOffers) {
-                select.append("   '").append(ofertas.getSocCD()).append("'\n  )\n");
+        for (Offers ofertas : offersReal) {
+            if (offersReal.size() == countOffers) {
+                select.append("   '").append(ofertas.getSocCD()).append("'\n  ))\n");
             } else {
                 select.append("   '").append(ofertas.getSocCD()).append("',\n");
             }
@@ -294,8 +360,8 @@ public class StateControl {
                 + "   state.state \n"
                 + "IN \n  (\n");
 
-        for (StateModel estados : states) {
-            if (states.size() == countStates) {
+        for (StateModel estados : statesReal) {
+            if (statesReal.size() == countStates) {
                 select.append("   '").append(estados.getState()).append("'\n  )\n");
             } else {
                 select.append("   '").append(estados.getState()).append("',\n");
@@ -308,7 +374,7 @@ public class StateControl {
                 + "   state.soc_cd,\n"
                 + "   state.state;\n");
         
-        select.append("-- ").append("0 registros selecionados no total\n\n");
+        select.append("-- ").append(((countOffers-1) * (countStates-1)) - countResult).append(" registros selecionados no total\n\n");
         System.out.println(select.toString());
 
         return select.toString();

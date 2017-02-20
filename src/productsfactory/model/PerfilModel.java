@@ -88,7 +88,7 @@ public class PerfilModel {
      */
     public static String generateSelectPerfilRollback(List<Offers> offers, List<PerfilModel> perfis, Fields fields) throws SQLException{
         
-        return PerfilControl.generateSelectPerfil(offers, perfis, fields);
+        return PerfilControl.generateSelectPerfilRollback(offers, perfis, fields);
     }
     
     

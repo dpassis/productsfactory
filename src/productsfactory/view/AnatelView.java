@@ -11,6 +11,7 @@
 package productsfactory.view;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -577,6 +578,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setCurrentDirectory(new File (System.getProperty("user.home")+ System.getProperty("file.separator")+ "Desktop"));
             fileChooser.setAcceptAllFileFilterUsed(false);
             
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
