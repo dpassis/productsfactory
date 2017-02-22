@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import productsfactory.model.AnatelModel;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
+import productsfactory.model.Prefixo;
 import productsfactory.model.StateModel;
 import productsfactory.model.Usuario;
 import productsfactory.model.Verifyer;
@@ -52,6 +53,7 @@ public class AnatelView extends javax.swing.JFrame {
      public AnatelView(java.awt.Frame janela,Usuario usuario) {
        initComponents();
        user = usuario;
+       this.inicializa();
         
        this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
        this.txaDescricaoFuncional.setText("Script que insere novos estados na tabela ANATEL");
@@ -152,6 +154,12 @@ public class AnatelView extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txaDescricaoFuncional = new interfacegrafica.dpa.textarea.TextAreaDPA();
         lblDescricaoFuncional = new interfacegrafica.dpa.labels.LabelDPA();
+        lblPrefixo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbSincronismo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblSincronismo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbPrefixo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblMantis = new interfacegrafica.dpa.labels.LabelDPA();
+        txtMantis = new interfacegrafica.dpa.textfield.TextFieldDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Anatel");
@@ -458,6 +466,20 @@ public class AnatelView extends javax.swing.JFrame {
 
         lblDescricaoFuncional.setText("Descrição Funcional Script");
 
+        lblPrefixo.setText("Prefixo:");
+
+        cmbSincronismo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "SIM", "NÃO" }));
+
+        lblSincronismo.setText("Realizar Sincronismo?");
+
+        cmbPrefixo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPrefixoActionPerformed(evt);
+            }
+        });
+
+        lblMantis.setText("Nº Mantis");
+
         javax.swing.GroupLayout pnlAnatelInsideLayout = new javax.swing.GroupLayout(pnlAnatelInside);
         pnlAnatelInside.setLayout(pnlAnatelInsideLayout);
         pnlAnatelInsideLayout.setHorizontalGroup(
@@ -470,13 +492,16 @@ public class AnatelView extends javax.swing.JFrame {
                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
+                                .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pnlCodigoAnatel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblDescricao)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrefixo)
+                            .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                                 .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                                        .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(pnlCodigoAnatel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(22, 22, 22)
-                                        .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -484,13 +509,20 @@ public class AnatelView extends javax.swing.JFrame {
                                         .addGap(27, 27, 27)
                                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblDlServiceCode))
-                                        .addGap(27, 27, 27)
+                                            .addComponent(lblDlServiceCode)))
+                                    .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
+                                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblSincronismo)
+                                    .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblDlUpdateStamp)
-                                            .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(lblDescricao)
-                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblMantis)
+                                            .addComponent(txtMantis))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDescricaoFuncional)
@@ -501,7 +533,7 @@ public class AnatelView extends javax.swing.JFrame {
         pnlAnatelInsideLayout.setVerticalGroup(
             pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(83, Short.MAX_VALUE)
                 .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                         .addComponent(lblDescricaoFuncional)
@@ -512,12 +544,20 @@ public class AnatelView extends javax.swing.JFrame {
                     .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                         .addComponent(lblTitulo)
                         .addGap(30, 30, 30)
-                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPrefixo)
+                            .addComponent(lblSincronismo))
+                        .addGap(11, 11, 11)
+                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                                .addComponent(lblDescricao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
                                 .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblOperatorID)
                                     .addComponent(lblDlServiceCode)
@@ -527,15 +567,15 @@ public class AnatelView extends javax.swing.JFrame {
                                     .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAnatelInsideLayout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
-                                        .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(pnlCodigoAnatel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pnlOfertas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pnlCodigoAnatel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                .addComponent(lblMantis)
+                                .addGap(7, 7, 7)
+                                .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
 
         javax.swing.GroupLayout pnlAnatelLayout = new javax.swing.GroupLayout(pnlAnatel);
@@ -631,11 +671,11 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         /**
                          * Creates the INSERTS Directory *
                          */
-                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\INSERTS");
-                        if (ArquivosUtil.createDir(pathOS.toString() + "\\INSERTS")) {
+                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\SCRIPTS");
+                        if (ArquivosUtil.createDir(pathOS.toString() + "\\SCRIPTS")) {
                             this.PrintLog("SubDiretório criado com sucesso!");
                         } else {
-                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\INSERTS");
+                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\SCRIPTS");
                         }
                         
                         /**
@@ -693,10 +733,10 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         String contentSelectRollback = AnatelModel.generateSelectAnatelRollback(offers,anatels, states, fields);
                         this.PrintLog(contentSelectRollback);
                         
-                        if (ArquivosUtil.createFile(pathOS.toString() + "\\INSERTS\\" + fields.getOsNumber() + "_INSERTS.sql", contentInsert)
-                                && ArquivosUtil.createFile(pathOS.toString() + "\\ROLLBACK\\" + fields.getOsNumber() + "_ROLLBACK.sql", contentDelete)
-                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION.sql", contentSelect)
-                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION_ROLLBACK.sql", contentSelectRollback)) {
+                        if (ArquivosUtil.createFile(pathOS.toString() + "\\SCRIPTS\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) +".sql", contentInsert)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\ROLLBACK\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_ROLLBACK.sql", contentDelete)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_VALIDATION.sql", contentSelect)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_VALIDATION_ROLLBACK.sql", contentSelectRollback)) {
                             
                             this.PrintLog("\n");
                             this.PrintLog("***************************************************************************************************************************");
@@ -704,7 +744,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                             this.PrintLog("***                                                                       Processo Finalizado com sucesso!                                                           ***");
                             this.PrintLog("***************************************************************************************************************************");
                             this.PrintLog("***************************************************************************************************************************");
-                            ArquivosUtil.createFile(pathOS.toString() + "\\LOG\\" + fields.getOsNumber() + "_LOG.txt", this.edtLog.getText());
+                            ArquivosUtil.createFile(pathOS.toString() + "\\LOG\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_LOG.txt", this.edtLog.getText());
                         }
                         
                     } else {
@@ -806,6 +846,18 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         // TODO add your handling code here:
     }//GEN-LAST:event_chESActionPerformed
 
+    private void cmbPrefixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPrefixoActionPerformed
+        // TODO add your handling code here:
+        if(this.cmbPrefixo.getSelectedItem().toString().contains("MANTIS")){
+            this.lblMantis.setVisible(true);
+            this.txtMantis.setVisible(true);
+        }else{
+            this.lblMantis.setVisible(false);
+            this.txtMantis.setVisible(false);
+            
+        }
+    }//GEN-LAST:event_cmbPrefixoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompile;
     private javax.swing.JCheckBox chAC;
@@ -836,6 +888,8 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JCheckBox chSE;
     private javax.swing.JCheckBox chSP;
     private javax.swing.JCheckBox chTO;
+    private javax.swing.JComboBox cmbPrefixo;
+    private javax.swing.JComboBox cmbSincronismo;
     private javax.swing.JEditorPane edtCodigo;
     private javax.swing.JEditorPane edtCodigoAnatel;
     private javax.swing.JTextArea edtLog;
@@ -848,7 +902,10 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JLabel lblDescricaoFuncional;
     private javax.swing.JLabel lblDlServiceCode;
     private javax.swing.JLabel lblDlUpdateStamp;
+    private javax.swing.JLabel lblMantis;
     private javax.swing.JLabel lblOperatorID;
+    private javax.swing.JLabel lblPrefixo;
+    private javax.swing.JLabel lblSincronismo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlAnatel;
     private javax.swing.JPanel pnlAnatelInside;
@@ -860,6 +917,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtDlServiceCode;
     private javax.swing.JTextField txtDlUpdateStamp;
+    private javax.swing.JTextField txtMantis;
     private javax.swing.JTextField txtOperatorID;
     // End of variables declaration//GEN-END:variables
 
@@ -892,7 +950,19 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }else if (!this.validaCheckbox()) {
             JOptionPane.showMessageDialog(this, "Selecione ao menos um Estado!", "Atenção!", 2);
             return false;
+        }else if (this.cmbPrefixo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Selecione o Prefixo!", "Atenção!", 2);
+            return false;
+        }else if (this.cmbSincronismo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Selecione a Necessidade Sincronismo!", "Atenção!", 2);
+            return false;
+        }else if(this.txtMantis.isVisible()){
+            if(this.txtMantis.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Nº Mantis é Obrigatório!", "Atenção!", 2);
+                return false;
+            }
         }
+        
         return true;
     }
     
@@ -1013,6 +1083,10 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         fields.setOperatorID(this.txtOperatorID.getText());
         fields.setOsDesc(this.txtDescricao.getText());
         fields.setUserName(Usuario.getFullName(user).toString());
+        fields.setPrefixo(this.cmbPrefixo.getSelectedItem().toString());
+        fields.setSincronismo(this.cmbSincronismo.getSelectedItem().toString());
+        if(txtMantis.isVisible())
+            fields.setMantis(txtMantis.getText());
         
         return fields;
         
@@ -1061,6 +1135,19 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
     }
     
+    public void populaComboPrefixo(){
+        
+        List<String> listPrefixos = Prefixo.getPrefixos();
+        for(String prefixo: listPrefixos ){   
+             cmbPrefixo.addItem(prefixo);   
+        }
+    }
+    
+    public void inicializa(){
+        this.populaComboPrefixo();
+        this.lblMantis.setVisible(false);
+        this.txtMantis.setVisible(false);
+    }
     
     public void PrintLog(String textLog) throws InterruptedException{
         
@@ -1068,5 +1155,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     edtLog.update(edtLog.getGraphics());
         
    }
+    
+    
 }
 

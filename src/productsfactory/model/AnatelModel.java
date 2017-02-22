@@ -59,13 +59,13 @@ public class AnatelModel {
         return AnatelControl.generateRollbackAnatel(offers, anatelCodes, states, fields);
     }
     
-    public static String generateSelectAnatel(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields){
+    public static String generateSelectAnatel(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields) throws SQLException{
         
         return AnatelControl.generateSelectAnatel(offers, anatelCodes, states, fields);
     }
     
     
-    public static String generateSelectAnatelRollback(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields){
+    public static String generateSelectAnatelRollback(List<Offers> offers,List<AnatelModel> anatelCodes, List<StateModel> states, Fields fields) throws SQLException{
         
         return AnatelControl.generateSelectAnatelRollback(offers, anatelCodes, states, fields);
     }

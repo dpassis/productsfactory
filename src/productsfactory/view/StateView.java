@@ -11,6 +11,7 @@
 package productsfactory.view;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +26,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
+import productsfactory.model.Prefixo;
 import productsfactory.model.StateModel;
 import productsfactory.model.Usuario;
 import productsfactory.model.Verifyer;
@@ -49,6 +51,7 @@ public class StateView extends javax.swing.JFrame {
     
      public StateView(java.awt.Frame janela, Usuario usuario) {
        initComponents();
+       this.inicializa();
        user = usuario;
         
        this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
@@ -141,6 +144,12 @@ public class StateView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txaDescricaoFuncional = new interfacegrafica.dpa.textarea.TextAreaDPA();
         lblDescricaoFuncional = new interfacegrafica.dpa.labels.LabelDPA();
+        lblPrefixo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbPrefixo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblSincronismo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbSincronismo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblMantis = new interfacegrafica.dpa.labels.LabelDPA();
+        txtMantis = new interfacegrafica.dpa.textfield.TextFieldDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
@@ -351,8 +360,7 @@ public class StateView extends javax.swing.JFrame {
                     .addComponent(chMT)
                     .addComponent(chTO))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chPA)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(chPA))
         );
 
         lblDescricao.setText("Descrição BSR (Retirada do IW)");
@@ -383,9 +391,7 @@ public class StateView extends javax.swing.JFrame {
         );
         pnlOfertasLayout.setVerticalGroup(
             pnlOfertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOfertasLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         lblTitulo.setText("GENERATE STATE (BSR)");
@@ -422,24 +428,39 @@ public class StateView extends javax.swing.JFrame {
 
         lblDescricaoFuncional.setText("Descrição Funcional Script");
 
+        lblPrefixo.setText("Prefixo:");
+
+        cmbPrefixo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPrefixoActionPerformed(evt);
+            }
+        });
+
+        lblSincronismo.setText("Realizar Sincronismo?");
+
+        cmbSincronismo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "SIM", "NÃO" }));
+
+        lblMantis.setText("Nº Mantis");
+
         javax.swing.GroupLayout pnlStateInsideLayout = new javax.swing.GroupLayout(pnlStateInside);
         pnlStateInside.setLayout(pnlStateInsideLayout);
         pnlStateInsideLayout.setHorizontalGroup(
             pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStateInsideLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(93, 93, 93)
                 .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo)
-                    .addComponent(lblDescricao)
                     .addGroup(pnlStateInsideLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStateInsideLayout.createSequentialGroup()
-                                .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)
-                                .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(94, 94, 94)
-                                .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPrefixo))
+                                .addGap(27, 27, 27)
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblSincronismo)
+                                    .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlStateInsideLayout.createSequentialGroup()
                                 .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -452,52 +473,76 @@ public class StateView extends javax.swing.JFrame {
                                 .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDlUpdateStamp)
                                     .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(198, 198, 198)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDescricaoFuncional)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lblMantis)
+                                    .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblDescricao)
+                            .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                                .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDescricaoFuncional)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         pnlStateInsideLayout.setVerticalGroup(
             pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStateInsideLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDescricao)
-                    .addComponent(lblDescricaoFuncional))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlStateInsideLayout.createSequentialGroup()
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblOperatorID)
-                            .addComponent(lblDlServiceCode)
-                            .addComponent(lblDlUpdateStamp))
-                        .addGap(7, 7, 7)
-                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addComponent(pnlOfertas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                        .addComponent(lblDescricaoFuncional)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                        .addComponent(lblDescricao)
+                        .addGap(2, 2, 2)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPrefixo)
+                            .addComponent(lblSincronismo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlEstados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(23, 23, 23))
+                            .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                                .addComponent(lblMantis)
+                                .addGap(7, 7, 7)
+                                .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlStateInsideLayout.createSequentialGroup()
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblOperatorID)
+                                    .addComponent(lblDlServiceCode)
+                                    .addComponent(lblDlUpdateStamp))
+                                .addGap(7, 7, 7)
+                                .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlStateInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlStateLayout = new javax.swing.GroupLayout(pnlState);
         pnlState.setLayout(pnlStateLayout);
         pnlStateLayout.setHorizontalGroup(
             pnlStateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1324, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlStateInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlStateLayout.setVerticalGroup(
@@ -528,6 +573,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setCurrentDirectory(new File (System.getProperty("user.home")+ System.getProperty("file.separator")+ "Desktop"));
             fileChooser.setAcceptAllFileFilterUsed(false);
             
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -580,11 +626,11 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         /**
                          * Creates the INSERTS Directory *
                          */
-                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\INSERTS");
-                        if (ArquivosUtil.createDir(pathOS.toString() + "\\INSERTS")) {
+                        this.PrintLog("Criando SubDiretório: " + pathOS.toString() + "\\SCRIPTS");
+                        if (ArquivosUtil.createDir(pathOS.toString() + "\\SCRIPTS")) {
                             this.PrintLog("SubDiretório criado com sucesso!");
                         } else {
-                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\INSERTS");
+                            this.PrintLog("Erro ao criar SubDiretório " + pathOS.toString() + "\\SCRIPTS");
                         }
                         
                         /**
@@ -643,10 +689,10 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         String contentSelectRollback = StateModel.generateSelectStateRollback(offers, states, fields);
                         this.PrintLog(contentSelectRollback);
                         
-                        if (ArquivosUtil.createFile(pathOS.toString() + "\\INSERTS\\" + fields.getOsNumber() + "_INSERTS.sql", contentInsert)
-                                && ArquivosUtil.createFile(pathOS.toString() + "\\ROLLBACK\\" + fields.getOsNumber() + "_ROLLBACK.sql", contentDelete)
-                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION.sql", contentSelect)
-                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" + fields.getOsNumber() + "_VALIDATION_ROLLBACK.sql", contentSelectRollback)) {
+                        if (ArquivosUtil.createFile(pathOS.toString() + "\\SCRIPTS\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) +".sql", contentInsert)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\ROLLBACK\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_ROLLBACK.sql", contentDelete)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_VALIDATION.sql", contentSelect)
+                                && ArquivosUtil.createFile(pathOS.toString() + "\\VALIDATION\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_VALIDATION_ROLLBACK.sql", contentSelectRollback)) {
                             
                             this.PrintLog("\n");
                             this.PrintLog("***************************************************************************************************************************");
@@ -654,7 +700,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                             this.PrintLog("***                                                                       Processo Finalizado com sucesso!                                                           ***");
                             this.PrintLog("***************************************************************************************************************************");
                             this.PrintLog("***************************************************************************************************************************");
-                            ArquivosUtil.createFile(pathOS.toString() + "\\LOG\\" + fields.getOsNumber() + "_LOG.txt", this.edtLog.getText());
+                            ArquivosUtil.createFile(pathOS.toString() + "\\LOG\\" +fields.getPrefixo()+"_"+(fields.getMantis() != null ? fields.getMantis()+"_":"")+"OS_"+ fields.getOsNumber()+(fields.getSincronismo().equals("SIM")?"_SINC":"" ) + "_LOG.txt", this.edtLog.getText());
                         }
                         
                     } else {
@@ -666,7 +712,11 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     
                 } catch (InterruptedException | SQLException | IOException ex) {
                     Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex);
-                    
+                    try {
+                        this.PrintLog(ex.getMessage().toString());
+                    } catch (InterruptedException ex1) {
+                        Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
                 }
                 
             } else {
@@ -674,6 +724,11 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         } catch (SQLException ex) {
             Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex);
+             try {
+                        this.PrintLog(ex.getMessage().toString());
+                    } catch (InterruptedException ex1) {
+                        Logger.getLogger(StateView.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
         }
    }
           
@@ -756,6 +811,18 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         // TODO add your handling code here:
     }//GEN-LAST:event_chESActionPerformed
 
+    private void cmbPrefixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPrefixoActionPerformed
+        // TODO add your handling code here:
+        if(this.cmbPrefixo.getSelectedItem().toString().contains("MANTIS")){
+            this.lblMantis.setVisible(true);
+            this.txtMantis.setVisible(true);
+        }else{
+            this.lblMantis.setVisible(false);
+            this.txtMantis.setVisible(false);
+
+        }
+    }//GEN-LAST:event_cmbPrefixoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompile;
     private javax.swing.JCheckBox chAC;
@@ -786,6 +853,8 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JCheckBox chSE;
     private javax.swing.JCheckBox chSP;
     private javax.swing.JCheckBox chTO;
+    private javax.swing.JComboBox cmbPrefixo;
+    private javax.swing.JComboBox cmbSincronismo;
     private javax.swing.JEditorPane edtCodigo;
     private javax.swing.JTextArea edtLog;
     private javax.swing.JScrollPane jScrollPane1;
@@ -796,7 +865,10 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JLabel lblDescricaoFuncional;
     private javax.swing.JLabel lblDlServiceCode;
     private javax.swing.JLabel lblDlUpdateStamp;
+    private javax.swing.JLabel lblMantis;
     private javax.swing.JLabel lblOperatorID;
+    private javax.swing.JLabel lblPrefixo;
+    private javax.swing.JLabel lblSincronismo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlEstados;
     private javax.swing.JPanel pnlLog;
@@ -807,6 +879,7 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtDlServiceCode;
     private javax.swing.JTextField txtDlUpdateStamp;
+    private javax.swing.JTextField txtMantis;
     private javax.swing.JTextField txtOperatorID;
     // End of variables declaration//GEN-END:variables
 
@@ -839,6 +912,17 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }else if (!this.validaCheckbox()) {
             JOptionPane.showMessageDialog(this, "Selecione ao menos um Estado!", "Atenção!", 2);
             return false;
+        }else if (this.cmbPrefixo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Selecione o Prefixo!", "Atenção!", 2);
+            return false;
+        }else if (this.cmbSincronismo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Selecione a Necessidade Sincronismo!", "Atenção!", 2);
+            return false;
+        }else if(this.txtMantis.isVisible()){
+            if(this.txtMantis.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Nº Mantis é Obrigatório!", "Atenção!", 2);
+                return false;
+            }
         }
         return true;
     }
@@ -937,6 +1021,10 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         fields.setOperatorID(this.txtOperatorID.getText());
         fields.setOsDesc(this.txtDescricao.getText());
         fields.setUserName(Usuario.getFullName(user).toString());
+        fields.setPrefixo(this.cmbPrefixo.getSelectedItem().toString());
+        fields.setSincronismo(this.cmbSincronismo.getSelectedItem().toString());
+        if(txtMantis.isVisible())
+            fields.setMantis(txtMantis.getText());
         
         return fields;
         
@@ -983,6 +1071,20 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
       return false;   
         
+    }
+    
+     public void populaComboPrefixo(){
+        
+        List<String> listPrefixos = Prefixo.getPrefixos();
+        for(String prefixo: listPrefixos ){   
+             cmbPrefixo.addItem(prefixo);   
+        }
+    }
+    
+     public void inicializa(){
+        this.populaComboPrefixo();
+        this.lblMantis.setVisible(false);
+        this.txtMantis.setVisible(false);
     }
     
     

@@ -19,6 +19,9 @@ public class Fields {
     private String DlUpdateStamp;
     private String OsNumber;
     private String UserName;
+    private String prefixo;
+    private String sincronismo;
+    private String mantis;
 
     public String getOsNumber() {
         return this.getDlServiceCode()+this.getDlUpdateStamp();
@@ -75,6 +78,32 @@ public class Fields {
     public void setDescFuncional(String DescFuncional) {
         this.DescFuncional = DescFuncional;
     }
+
+    public String getPrefixo() {
+        return prefixo;
+    }
+
+    public void setPrefixo(String prefixo) {
+        this.prefixo = prefixo;
+    }
+
+    public String getSincronismo() {
+        return sincronismo;
+    }
+
+    public void setSincronismo(String sincronismo) {
+        this.sincronismo = sincronismo;
+    }
+
+    public String getMantis() {
+        return mantis;
+    }
+
+    public void setMantis(String mantis) {
+        this.mantis = mantis;
+    }
+    
+    
     
     
 }
