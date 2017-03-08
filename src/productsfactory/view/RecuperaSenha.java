@@ -10,6 +10,13 @@
  */
 package productsfactory.view;
 
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import productsfactory.useful.TelaUteis;
 
 /**
@@ -19,6 +26,8 @@ import productsfactory.useful.TelaUteis;
 public class RecuperaSenha extends javax.swing.JDialog {
      
      private static RecuperaSenha jdialogRecuperaSenha = null;
+     
+     
 
     public static RecuperaSenha getDialogRecuperaSenha(){
 
@@ -48,21 +57,52 @@ public class RecuperaSenha extends javax.swing.JDialog {
         lblInformacao3 = new interfacegrafica.dpa.labels.LabelDPA();
         lblInformacao1 = new interfacegrafica.dpa.labels.LabelDPA();
         lblInformacao2 = new interfacegrafica.dpa.labels.LabelDPA();
+        lblInformacao4 = new interfacegrafica.dpa.labels.LabelDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Esqueceu sua senha?");
+
+        pnlEsqueceuSuaSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlEsqueceuSuaSenhaMouseEntered(evt);
+            }
+        });
 
         lblInformacao.setForeground(new java.awt.Color(255, 0, 51));
         lblInformacao.setText("Contate o administrador do sistema!");
 
         lblInformacao3.setForeground(new java.awt.Color(0, 51, 255));
-        lblInformacao3.setText("para o email cadastrado na criação do usuário.");
+        lblInformacao3.setText("http://server-luke/redmine/account/lost_password");
+        lblInformacao3.setFont(new java.awt.Font("Palation Linotype", 2, 14)); // NOI18N
+        lblInformacao3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInformacao3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblInformacao3MouseEntered(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblInformacao3MouseReleased(evt);
+            }
+        });
 
         lblInformacao1.setForeground(new java.awt.Color(0, 51, 255));
-        lblInformacao1.setText("Lembre-se um email com seu usuário e senha");
+        lblInformacao1.setText("http://server-luke/redmine/my/password");
+        lblInformacao1.setFont(new java.awt.Font("Palation Linotype", 2, 14)); // NOI18N
+        lblInformacao1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInformacao1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblInformacao1MouseEntered(evt);
+            }
+        });
 
         lblInformacao2.setForeground(new java.awt.Color(0, 51, 255));
-        lblInformacao2.setText("foi enviado ");
+        lblInformacao2.setText("Acesse o primeiro LINK para recuperar sua senha");
+
+        lblInformacao4.setForeground(new java.awt.Color(0, 51, 255));
+        lblInformacao4.setText("ou o segundo LINK para alterar sua senha.");
 
         javax.swing.GroupLayout pnlEsqueceuSuaSenhaLayout = new javax.swing.GroupLayout(pnlEsqueceuSuaSenha);
         pnlEsqueceuSuaSenha.setLayout(pnlEsqueceuSuaSenhaLayout);
@@ -71,30 +111,36 @@ public class RecuperaSenha extends javax.swing.JDialog {
             .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
                 .addGroup(pnlEsqueceuSuaSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(77, 77, 77)
                         .addComponent(lblInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(pnlEsqueceuSuaSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblInformacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInformacao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(lblInformacao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(lblInformacao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(lblInformacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblInformacao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblInformacao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         pnlEsqueceuSuaSenhaLayout.setVerticalGroup(
             pnlEsqueceuSuaSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEsqueceuSuaSenhaLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(45, 45, 45)
                 .addComponent(lblInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(lblInformacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblInformacao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(18, 18, 18)
                 .addComponent(lblInformacao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblInformacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(lblInformacao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblInformacao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlEsqueceuSuaSenha, java.awt.BorderLayout.CENTER);
@@ -102,12 +148,47 @@ public class RecuperaSenha extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblInformacao3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInformacao3MouseClicked
+         try {
+             final URI uri = new URI("http://server-luke/redmine/account/lost_password");
+              open(uri);
+         } catch (URISyntaxException ex) {
+             Logger.getLogger(RecuperaSenha.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_lblInformacao3MouseClicked
+
+    private void lblInformacao3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInformacao3MouseReleased
+       
+    }//GEN-LAST:event_lblInformacao3MouseReleased
+
+    private void lblInformacao3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInformacao3MouseEntered
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblInformacao3MouseEntered
+
+    private void lblInformacao1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInformacao1MouseEntered
+         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblInformacao1MouseEntered
+
+    private void pnlEsqueceuSuaSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEsqueceuSuaSenhaMouseEntered
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_pnlEsqueceuSuaSenhaMouseEntered
+
+    private void lblInformacao1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInformacao1MouseClicked
+        try {
+             final URI uri = new URI("http://server-luke/redmine/my/password");
+              open(uri);
+         } catch (URISyntaxException ex) {
+             Logger.getLogger(RecuperaSenha.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_lblInformacao1MouseClicked
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private interfacegrafica.dpa.labels.LabelDPA lblInformacao;
     private interfacegrafica.dpa.labels.LabelDPA lblInformacao1;
     private interfacegrafica.dpa.labels.LabelDPA lblInformacao2;
     private interfacegrafica.dpa.labels.LabelDPA lblInformacao3;
+    private interfacegrafica.dpa.labels.LabelDPA lblInformacao4;
     private interfacegrafica.dpa.panels.PanelTituloDPA pnlEsqueceuSuaSenha;
     // End of variables declaration//GEN-END:variables
 
@@ -115,4 +196,12 @@ public class RecuperaSenha extends javax.swing.JDialog {
         
         TelaUteis.locateOnScreen(this, 409, 300);
     }
+    
+   private static void open(URI uri) {
+    if (Desktop.isDesktopSupported()) {
+      try {
+        Desktop.getDesktop().browse(uri);
+      } catch (IOException e) { /* TODO: error handling */ }
+    } else { /* TODO: error handling */ }
+  }
 }

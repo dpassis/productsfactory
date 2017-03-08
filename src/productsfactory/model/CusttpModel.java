@@ -6,6 +6,9 @@
 
 package productsfactory.model;
 
+import java.util.List;
+import productsfactory.control.CusttpControl;
+
 /**
  *
  * @author Daniel Paulo
@@ -15,6 +18,7 @@ public class CusttpModel {
     
     private String tipo;
     private String subTipo;
+    private String descricao;
     private Offers offer;
 
     public String getTipo() {
@@ -39,5 +43,18 @@ public class CusttpModel {
 
     public void setOffer(Offers offer) {
         this.offer = offer;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    public static List<CusttpModel> getDescricaoTipoSubtipo(List<CusttpModel> tipo, List<CusttpModel> subTipo){
+        
+        return CusttpControl.getDescricaoTipoSubtipo(tipo, subTipo);
     }
 }

@@ -54,10 +54,14 @@ public class PerfilView extends javax.swing.JFrame {
         this.inicializa();
         //this.edtCodigo.setVisible(false);
         
-      /* this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
+       this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
        this.txtDlServiceCode.setText("10795");
-       this.txtDlUpdateStamp.setText("4");
+       this.txtDlUpdateStamp.setText("8");
        this.txtOperatorID.setText("93277340");
+       this.cmbPrefixo.setSelectedIndex(4);
+       this.cmbSincronismo.setSelectedIndex(1);
+       
+       this.txaDescricaoFuncional.setText("bla bbla lsfdfdleikelkdsfkjlsdfksfdkjlsfdljksfdljkfsdlkjsfdlkjfsd\njfdsjajalkjfajajdfasdj");
        
        
      
@@ -75,19 +79,15 @@ public class PerfilView extends javax.swing.JFrame {
                                 "169001264\n");
 
        
-       this.edtPerfil.setText("ACORPSUP\n"+
+       this.edtPerfil.setText("_ACORPSUP\n"+
                             "_ANCONTPF\n"+
                             "_BCKPF_MU\n"+
                             "_POSFATSUP\n"+
                             "_TIEAI\n"+
                             "_PROCESSOS\n"+
-                            "_TMK_TERCO\n"+
                             "_COBRGECOR\n"+
                             "_VIDEOCOOR"
                             );
-               */
-       
-        
     }
     
     public static PerfilView getFramePerfil(java.awt.Frame janela){
@@ -421,7 +421,14 @@ public class PerfilView extends javax.swing.JFrame {
                             List<Offers> offers = Verifyer.verifyOfferExists(ofertas);
                             for (Offers oferta : offers) {
                                 this.PrintLog(oferta.getSocCD() + " - " + oferta.getSocName() + " - " + oferta.getStatusOffer());
+                                if(oferta.getStatusOffer().contains("NOK!")){
+                                    this.PrintLog("Oferta \""+oferta.getSocCD() +"\" não encontrada, revise as ofertas, processo encerrado");
+                                    JOptionPane.showMessageDialog(this, "Oferta \""+oferta.getSocCD() +"\" não encontrada, revise as ofertas, processo encerrado!", "Atenção!", 2);
+                                    return;
+                                }
                             }
+                            
+                            
                             this.PrintLog("\n");
                             this.PrintLog("===================================");
                             this.PrintLog("Verificando Perfis:");
@@ -429,6 +436,11 @@ public class PerfilView extends javax.swing.JFrame {
                             List<PerfilModel> perfil = Verifyer.verifyPerfilExists(perfis);
                             for (PerfilModel perfilObj : perfil) {
                                 this.PrintLog(perfilObj.getPerfil() + " - " + perfilObj.getStatusPerfil());
+                                 if(perfilObj.getStatusPerfil().contains("NOK!")){
+                                    this.PrintLog("Perfil \""+ perfilObj.getPerfil()+"\" não encontrado, revise os perfis, processo encerrado");
+                                    JOptionPane.showMessageDialog(this, "Perfil \""+ perfilObj.getPerfil()+"\" não encontrado, revise os perfis, processo encerrado!", "Atenção!", 2);
+                                    return;
+                                }
                             }
                             this.PrintLog("\n");
                             
@@ -530,6 +542,8 @@ public class PerfilView extends javax.swing.JFrame {
                         }
                         Logger.getLogger(PerfilView.class.getName()).log(Level.SEVERE, null, ex);
                         
+                    } catch (Exception ex) {
+                        Logger.getLogger(PerfilView.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                 } else {

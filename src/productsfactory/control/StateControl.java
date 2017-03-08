@@ -73,7 +73,7 @@ public class StateControl {
                     if (rs.next()) {
 
                     } else {
-                        inserts.append("INSERT INTO MTAREFWORK.CSM_OFFER_STATE (soc_cd, state, market_company, sys_creation_date, sys_update_date, operator_id, application_id, dl_service_code, dl_update_stamp) VALUES ('").append(offers.get(i).getSocCD()).append("','").append(states.get(j).getState()).append("','*',SYSDATE,NULL,").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(");\n");
+                        inserts.append("INSERT INTO mtarefwork.csm_offer_state (soc_cd, state, market_company, sys_creation_date, sys_update_date, operator_id, application_id, dl_service_code, dl_update_stamp) VALUES ('").append(offers.get(i).getSocCD()).append("','").append(states.get(j).getState()).append("','*',SYSDATE,NULL,").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(");\n");
 
                         countQtdeInserts++;
                         countQtdeInsertsTotal++;
@@ -154,7 +154,7 @@ public class StateControl {
                     if (rs.next()) {
 
                     } else {
-                        delete.append("DELETE FROM MTAREFWORK.CSM_OFFER_STATE WHERE SOC_CD = '").append(offers.get(i).getSocCD()).append("' AND STATE = '").append(states.get(j).getState()).append("';\n");
+                        delete.append("DELETE FROM mtarefwork.csm_offer_state WHERE soc_cd = '").append(offers.get(i).getSocCD()).append("' AND state = '").append(states.get(j).getState()).append("';\n");
                         System.out.println("DELETE FROM MTAREFWORK.CSM_OFFER_STATE WHERE SOC_CD = '" + offers.get(i).getSocCD() + "' AND STATE = '" + states.get(j).getState() + "';");
 
                         countQtdeDelets++;

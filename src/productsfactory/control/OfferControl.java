@@ -37,31 +37,26 @@ public class OfferControl {
           for(int i = 0; i < offer.size(); i++){
               
            
-            pstmt = con.prepareStatement("SELECT soc_cd, soc_name FROM mtaapp6.csm_offer WHERE soc_cd = (?)");
+            pstmt = con.prepareStatement("SELECT soc_cd, soc_name FROM mtaappc.csm_offer@bcv_fm WHERE soc_cd = (?)");
             pstmt.setString(1,offer.get(i).replace("\r", ""));
             
             
             rs = pstmt.executeQuery();
-          
-            while(rs.next()){
-           
-                 
-                 Offers offers = new Offers();
-                 
+            Offers offers = new Offers();
+            if(rs.next()){
                  if(rs.getString("soc_cd") != null){
                      
                      offers.setSocCD(rs.getString("soc_cd"));
                      offers.setSocName(rs.getString("soc_name"));
                      offers.setStatusOffer("OK!");
-                 }else{
+                 }
+            }else{
                      offers.setSocCD(offer.get(i));
                      offers.setSocName("-");
                      offers.setStatusOffer("NOK!");
                  }
                  
-                 listOffers.add(offers);
-                 
-            }
+            listOffers.add(offers);
            
           }
             

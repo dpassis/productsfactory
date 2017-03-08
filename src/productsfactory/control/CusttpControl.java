@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import productsfactory.model.CusttpModel;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
@@ -23,6 +25,54 @@ import productsfactory.useful.DataUtil;
  * @author Daniel Paulo
  */
 public class CusttpControl {
+    
+    
+    public static List<CusttpModel> getDescricaoTipoSubtipo(List<CusttpModel> tipo, List<CusttpModel> subTipo){
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        con = ConexaoOracle.getInstance().getConnection();
+
+        List<CusttpModel> listDescricao = new ArrayList<>();  
+         try {
+                for(int i = 0; i < tipo.size(); i++){
+
+                   for(int j = 0; j < subTipo.size(); j++){
+                       
+                       
+                            pstmt = con.prepareStatement("SELECT " +
+                                                         "ct.customer_type " +
+                                                         ",cst.cust_sub_type " +
+                                                          ",CONCAT(ct.customer_type||'/'||cst.cust_sub_type||'- '||ct.custtp_desc||' - ',cst.description) AS descricao " +
+                                                          "FROM " +
+                                                          "mtaappc.customer_type@bcv_fm ct " +
+                                                          "LEFT JOIN " +
+                                                          "mtaappc.customer_sub_type@bcv_fm cst " +
+                                                          "ON (ct.customer_type = cst.customer_type) "+
+                                                          "WHERE ct.customer_type = (?) AND cst.cust_sub_type = (?) ");
+                           pstmt.setString(1, tipo.get(i).getTipo());
+                           pstmt.setString(2, subTipo.get(j).getSubTipo());
+                           
+                           System.out.println(tipo.get(i).getTipo()+"-"+ subTipo.get(j).getSubTipo());
+                           
+                           rs = pstmt.executeQuery();
+
+                        if (rs.next()) {
+                            
+                            CusttpModel custtp = new CusttpModel();
+                            custtp.setDescricao(rs.getString("descricao"));
+                            
+                            listDescricao.add(custtp);
+                        }
+                   }
+
+                }
+           } catch (SQLException ex) {
+                    Logger.getLogger(CusttpControl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        return listDescricao;
+    }
 
     /**
      *

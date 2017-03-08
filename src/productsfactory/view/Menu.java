@@ -389,7 +389,7 @@ private void jmiAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void jMenuItemCusttpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCusttpActionPerformed
         // TODO add your handling code here:
-        CusttpView custtpView = new CusttpView(this);
+        CusttpView custtpView = new CusttpView(this,user);
         custtpView.setExtendedState(MAXIMIZED_BOTH);
         custtpView.setVisible(true);
     }//GEN-LAST:event_jMenuItemCusttpActionPerformed

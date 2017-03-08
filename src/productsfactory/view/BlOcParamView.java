@@ -126,10 +126,18 @@ public class BlOcParamView extends javax.swing.JFrame {
         pnlLog = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         edtLog = new javax.swing.JTextArea();
+        lblPrefixo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbPrefixo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblSincronismo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbSincronismo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        txtMantis = new interfacegrafica.dpa.textfield.TextFieldDPA();
+        lblMantis = new interfacegrafica.dpa.labels.LabelDPA();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txaDescricaoFuncional = new interfacegrafica.dpa.textarea.TextAreaDPA();
+        lblDescricaoFuncional = new interfacegrafica.dpa.labels.LabelDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
-        setResizable(false);
 
         pnlOcParam.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -171,9 +179,8 @@ public class BlOcParamView extends javax.swing.JFrame {
         pnlOcParamValuesLayout.setVerticalGroup(
             pnlOcParamValuesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOcParamValuesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         lblDescricao.setText("Descrição BSR (Retirada do IW)");
@@ -206,7 +213,7 @@ public class BlOcParamView extends javax.swing.JFrame {
             pnlOfertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOfertasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -232,11 +239,31 @@ public class BlOcParamView extends javax.swing.JFrame {
         );
         pnlLogLayout.setVerticalGroup(
             pnlLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
+
+        lblPrefixo.setText("Prefixo:");
+
+        cmbPrefixo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPrefixoActionPerformed(evt);
+            }
+        });
+
+        lblSincronismo.setText("Realizar Sincronismo?");
+
+        cmbSincronismo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "SIM", "NÃO" }));
+
+        lblMantis.setText("Nº Mantis");
+
+        txaDescricaoFuncional.setColumns(20);
+        txaDescricaoFuncional.setRows(5);
+        jScrollPane4.setViewportView(txaDescricaoFuncional);
+
+        lblDescricaoFuncional.setText("Descrição Funcional Script");
 
         javax.swing.GroupLayout pnlOcParamInsideLayout = new javax.swing.GroupLayout(pnlOcParamInside);
         pnlOcParamInside.setLayout(pnlOcParamInsideLayout);
@@ -246,79 +273,110 @@ public class BlOcParamView extends javax.swing.JFrame {
                 .addGap(90, 90, 90)
                 .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo)
-                    .addComponent(lblDescricao)
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
                                 .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addComponent(pnlOcParamValues, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(130, 130, 130)
-                                .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pnlOcParamValues, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblDescricao)
+                            .addComponent(lblPrefixo)
+                            .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
-                                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblOperatorID))
-                                .addGap(27, 27, 27)
-                                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDlServiceCode))
-                                .addGap(27, 27, 27)
-                                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDlUpdateStamp)
-                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                .addGap(234, 234, 234)
+                                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblSincronismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
+                                    .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblOperatorID))
+                                    .addGap(27, 27, 27)
+                                    .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblDlServiceCode))
+                                    .addGap(27, 27, 27)
+                                    .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblDlUpdateStamp)
+                                        .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblMantis)
+                                        .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDescricaoFuncional)
+                            .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         pnlOcParamInsideLayout.setVerticalGroup(
             pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addComponent(lblDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOperatorID)
-                    .addComponent(lblDlServiceCode)
-                    .addComponent(lblDlUpdateStamp))
-                .addGap(7, 7, 7)
-                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addComponent(lblDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPrefixo)
+                            .addComponent(lblSincronismo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlOcParamValues, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlOfertas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(814, 814, 814))
+                            .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
+                                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblOperatorID)
+                                    .addComponent(lblDlServiceCode)
+                                    .addComponent(lblDlUpdateStamp))
+                                .addGap(7, 7, 7)
+                                .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
+                                .addComponent(lblMantis)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pnlOcParamValues, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(pnlOfertas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11))
+                    .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
+                        .addGroup(pnlOcParamInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlOcParamInsideLayout.createSequentialGroup()
+                                .addComponent(lblDescricaoFuncional)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout pnlOcParamLayout = new javax.swing.GroupLayout(pnlOcParam);
         pnlOcParam.setLayout(pnlOcParamLayout);
         pnlOcParamLayout.setHorizontalGroup(
             pnlOcParamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1323, Short.MAX_VALUE)
-            .addGroup(pnlOcParamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlOcParamInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlOcParamInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlOcParamLayout.setVerticalGroup(
             pnlOcParamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOcParamLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1423, Short.MAX_VALUE))
-            .addGroup(pnlOcParamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlOcParamLayout.createSequentialGroup()
-                    .addGap(40, 40, 40)
-                    .addComponent(pnlOcParamInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlOcParamInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlOcParam, java.awt.BorderLayout.CENTER);
@@ -485,28 +543,49 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
           
 }//GEN-LAST:event_btnCompileActionPerformed
 
+    private void cmbPrefixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPrefixoActionPerformed
+        // TODO add your handling code here:
+        if(this.cmbPrefixo.getSelectedItem().toString().contains("MANTIS")){
+            this.lblMantis.setVisible(true);
+            this.txtMantis.setVisible(true);
+        }else{
+            this.lblMantis.setVisible(false);
+            this.txtMantis.setVisible(false);
+
+        }
+    }//GEN-LAST:event_cmbPrefixoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompile;
+    private javax.swing.JComboBox cmbPrefixo;
+    private javax.swing.JComboBox cmbSincronismo;
     private javax.swing.JEditorPane edtCodigo;
     private javax.swing.JTextArea edtLog;
     private javax.swing.JEditorPane edtValores;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblDescricaoFuncional;
     private javax.swing.JLabel lblDlServiceCode;
     private javax.swing.JLabel lblDlUpdateStamp;
+    private javax.swing.JLabel lblMantis;
     private javax.swing.JLabel lblOperatorID;
+    private javax.swing.JLabel lblPrefixo;
+    private javax.swing.JLabel lblSincronismo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlLog;
     private javax.swing.JPanel pnlOcParam;
     private javax.swing.JPanel pnlOcParamInside;
     private javax.swing.JPanel pnlOcParamValues;
     private javax.swing.JPanel pnlOfertas;
+    private javax.swing.JTextArea txaDescricaoFuncional;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtDlServiceCode;
     private javax.swing.JTextField txtDlUpdateStamp;
+    private javax.swing.JTextField txtMantis;
     private javax.swing.JTextField txtOperatorID;
     // End of variables declaration//GEN-END:variables
 

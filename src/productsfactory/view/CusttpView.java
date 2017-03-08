@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 import productsfactory.model.CusttpModel;
 import productsfactory.model.Fields;
 import productsfactory.model.Offers;
+import productsfactory.model.Prefixo;
+import productsfactory.model.Usuario;
 import productsfactory.model.Verifyer;
 import productsfactory.useful.ArquivosUtil;
 import productsfactory.useful.ConexaoOracle;
@@ -38,6 +40,7 @@ import productsfactory.useful.FieldsUtil;
 public class CusttpView extends javax.swing.JFrame {
     
     private static CusttpView jFrame = null;
+    private static Usuario user = null;
     
     /** Creates new form Menu */
     public CusttpView() {
@@ -45,8 +48,10 @@ public class CusttpView extends javax.swing.JFrame {
     }
     
     
-     public CusttpView(java.awt.Frame janela) {
+     public CusttpView(java.awt.Frame janela, Usuario usuario) {
        initComponents();
+       user = usuario;
+       this.inicializa();
         
        this.txtDescricao.setText("BSR -Novo Portfólio BL e Pacotes Adicionais");
        this.txtDlServiceCode.setText("10795");
@@ -70,7 +75,7 @@ public class CusttpView extends javax.swing.JFrame {
     
     public static CusttpView getFrameState(java.awt.Frame janela){
           if (jFrame == null) {
-            jFrame = new CusttpView(janela);
+            jFrame = new CusttpView(janela,user);
         }
         return jFrame;
     }
@@ -132,6 +137,15 @@ public class CusttpView extends javax.swing.JFrame {
         chTipoG = new javax.swing.JCheckBox();
         chTipoI = new javax.swing.JCheckBox();
         chTipoP = new javax.swing.JCheckBox();
+        lblPrefixo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbPrefixo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblSincronismo = new interfacegrafica.dpa.labels.LabelDPA();
+        cmbSincronismo = new interfacegrafica.dpa.combobox.ComboboxDPA();
+        lblMantis = new interfacegrafica.dpa.labels.LabelDPA();
+        txtMantis = new interfacegrafica.dpa.textfield.TextFieldDPA();
+        lblDescricaoFuncional = new interfacegrafica.dpa.labels.LabelDPA();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txaDescricaoFuncional = new interfacegrafica.dpa.textarea.TextAreaDPA();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
@@ -258,7 +272,7 @@ public class CusttpView extends javax.swing.JFrame {
                             .addComponent(chSubT)
                             .addComponent(chSubZ))
                         .addGap(4, 4, 4)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlEstadosLayout.setVerticalGroup(
             pnlEstadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,8 +319,7 @@ public class CusttpView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chSubN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chSubP)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(chSubP))
         );
 
         lblDescricao.setText("Descrição BSR (Retirada do IW)");
@@ -360,7 +373,7 @@ public class CusttpView extends javax.swing.JFrame {
             .addGroup(pnlLogLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlLogLayout.setVerticalGroup(
             pnlLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,92 +444,152 @@ public class CusttpView extends javax.swing.JFrame {
                 .addContainerGap(237, Short.MAX_VALUE))
         );
 
+        lblPrefixo.setText("Prefixo:");
+
+        cmbPrefixo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPrefixoActionPerformed(evt);
+            }
+        });
+
+        lblSincronismo.setText("Realizar Sincronismo?");
+
+        cmbSincronismo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "SIM", "NÃO" }));
+
+        lblMantis.setText("Nº Mantis");
+
+        lblDescricaoFuncional.setText("Descrição Funcional Script");
+
+        txaDescricaoFuncional.setColumns(20);
+        txaDescricaoFuncional.setRows(5);
+        jScrollPane4.setViewportView(txaDescricaoFuncional);
+
         javax.swing.GroupLayout pnlAnatelInsideLayout = new javax.swing.GroupLayout(pnlAnatelInside);
         pnlAnatelInside.setLayout(pnlAnatelInsideLayout);
         pnlAnatelInsideLayout.setHorizontalGroup(
             pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(40, 40, 40)
                 .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo)
-                    .addComponent(lblDescricao)
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAnatelInsideLayout.createSequentialGroup()
+                                    .addComponent(lblDescricao)
+                                    .addGap(385, 385, 385))
+                                .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                    .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblOperatorID))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblDlServiceCode))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblDlUpdateStamp)
+                                        .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(42, 42, 42)
+                                    .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblMantis)
+                                        .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(85, 85, 85))
+                                .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                    .addComponent(txtDescricao)
+                                    .addGap(65, 65, 65)))
                             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                                .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
                                 .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblOperatorID))
-                                .addGap(27, 27, 27)
-                                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDlServiceCode))
-                                .addGap(27, 27, 27)
-                                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDlUpdateStamp)
-                                    .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblPrefixo))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lblSincronismo)
+                                            .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                        .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pnlTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(7, 7, 7)
+                                        .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDescricaoFuncional)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlAnatelInsideLayout.setVerticalGroup(
             pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescricao)
+                    .addComponent(lblDescricaoFuncional))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblDescricao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblOperatorID)
-                            .addComponent(lblDlServiceCode)
-                            .addComponent(lblDlUpdateStamp))
-                        .addGap(7, 7, 7)
-                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSincronismo)
+                            .addComponent(lblPrefixo))
+                        .addGap(6, 6, 6)
                         .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmbSincronismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbPrefixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pnlOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAnatelInsideLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
                                 .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pnlTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(796, Short.MAX_VALUE))
+                                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblOperatorID)
+                                            .addComponent(lblMantis))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtOperatorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtMantis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAnatelInsideLayout.createSequentialGroup()
+                                        .addComponent(lblDlUpdateStamp)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDlUpdateStamp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                                .addComponent(lblDlServiceCode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDlServiceCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAnatelInsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlOfertas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(pnlEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlAnatelInsideLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(pnlLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlAnatelLayout = new javax.swing.GroupLayout(pnlAnatel);
         pnlAnatel.setLayout(pnlAnatelLayout);
         pnlAnatelLayout.setHorizontalGroup(
             pnlAnatelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1393, Short.MAX_VALUE)
-            .addGroup(pnlAnatelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlAnatelInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlAnatelInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlAnatelLayout.setVerticalGroup(
             pnlAnatelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAnatelLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1401, Short.MAX_VALUE))
-            .addGroup(pnlAnatelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlAnatelLayout.createSequentialGroup()
-                    .addGap(40, 40, 40)
-                    .addComponent(pnlAnatelInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlAnatelInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlAnatel, java.awt.BorderLayout.CENTER);
@@ -528,22 +601,22 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
   
     this.edtLog.setText("");
     if (this.validaCampos()) {
-
-        Fields fields = this.getFields();
-        List<CusttpModel> tipos = this.retornaTipos();
-        List<CusttpModel> subTipos = this.retornaSubTipos();
-        List<String> ofertas = FieldsUtil.getEdtTextByLine(this.edtCodigo.getText());
-
-        /**
-         * JFile configuration *
-         */
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fileChooser.setAcceptAllFileFilterUsed(false);
-
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
+        try {
+            Fields fields = this.getFields();
+            List<CusttpModel> tipos = this.retornaTipos();
+            List<CusttpModel> subTipos = this.retornaSubTipos();
+            List<String> ofertas = FieldsUtil.getEdtTextByLine(this.edtCodigo.getText());
+            
+            /**
+             * JFile configuration *
+             */
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Selecione o diretório para salvar os arquivos");
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                
                 edtLog.append("Iniciando...\n");
                 edtLog.append("\n");
                 edtLog.append("===================================\n");
@@ -573,8 +646,8 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     this.PrintLog("===================================");
                     this.PrintLog("Tipo | SubTipo | Descrição");
                     this.PrintLog("===================================");
-                    for(String desc: this.retornaDescTipoSubtipo(tipos, subTipos)) {
-                        this.PrintLog(desc);
+                    for(CusttpModel desc: this.retornaDescTipoSubtipo(tipos, subTipos)) {
+                        this.PrintLog(desc.getDescricao());
                     }
                     
                     this.PrintLog("\n");
@@ -674,14 +747,18 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     this.PrintLog("Erro ao conectar ao banco de dados!");
                     this.PrintLog("===================================");
                 }
-
-            } catch (InterruptedException | SQLException | IOException ex) {
-                Logger.getLogger(CusttpView.class.getName()).log(Level.SEVERE, null, ex);
-
+                
+                
+                
+            } else {
+                System.out.println("No Selection ");
             }
-
-        } else {
-            System.out.println("No Selection ");
+        } catch (SQLException ex) {
+            Logger.getLogger(CusttpView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CusttpView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CusttpView.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
           
@@ -774,6 +851,18 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         // TODO add your handling code here:
     }//GEN-LAST:event_chTipoBActionPerformed
 
+    private void cmbPrefixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPrefixoActionPerformed
+        // TODO add your handling code here:
+        if(this.cmbPrefixo.getSelectedItem().toString().contains("MANTIS")){
+            this.lblMantis.setVisible(true);
+            this.txtMantis.setVisible(true);
+        }else{
+            this.lblMantis.setVisible(false);
+            this.txtMantis.setVisible(false);
+
+        }
+    }//GEN-LAST:event_cmbPrefixoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompile;
     private javax.swing.JCheckBox chCheckAllSubTipos;
@@ -803,15 +892,22 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JCheckBox chTipoG;
     private javax.swing.JCheckBox chTipoI;
     private javax.swing.JCheckBox chTipoP;
+    private javax.swing.JComboBox cmbPrefixo;
+    private javax.swing.JComboBox cmbSincronismo;
     private javax.swing.JEditorPane edtCodigo;
     private javax.swing.JTextArea edtLog;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblDescricaoFuncional;
     private javax.swing.JLabel lblDlServiceCode;
     private javax.swing.JLabel lblDlUpdateStamp;
+    private javax.swing.JLabel lblMantis;
     private javax.swing.JLabel lblOperatorID;
+    private javax.swing.JLabel lblPrefixo;
+    private javax.swing.JLabel lblSincronismo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlAnatel;
     private javax.swing.JPanel pnlAnatelInside;
@@ -819,9 +915,11 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JPanel pnlLog;
     private javax.swing.JPanel pnlOfertas;
     private javax.swing.JPanel pnlTipo;
+    private javax.swing.JTextArea txaDescricaoFuncional;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtDlServiceCode;
     private javax.swing.JTextField txtDlUpdateStamp;
+    private javax.swing.JTextField txtMantis;
     private javax.swing.JTextField txtOperatorID;
     // End of variables declaration//GEN-END:variables
 
@@ -957,19 +1055,6 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         return listSubTipos;
     }
     
-    private Fields getFields(){
-        
-        Fields fields = new Fields();
-        
-        fields.setDlServiceCode(this.txtDlServiceCode.getText());
-        fields.setDlUpdateStamp(this.txtDlUpdateStamp.getText());
-        fields.setOperatorID(this.txtOperatorID.getText());
-        fields.setOsDesc(this.txtDescricao.getText());
-        
-        return fields;
-        
-        
-    }
    
     private boolean validaCheckboxSubtipo(){
     
@@ -1008,141 +1093,9 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
     }
     
-    public List<String> retornaDescTipoSubtipo(List<CusttpModel> tipo, List<CusttpModel> subTipo){
+    public List<CusttpModel> retornaDescTipoSubtipo(List<CusttpModel> tipo, List<CusttpModel> subTipo){
         
-        List<String> descTypeSubType = new ArrayList<>();
-        
-        for(CusttpModel type : tipo){
-            
-            for(CusttpModel subType : subTipo){
-                                           
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("A")){
-                    descTypeSubType.add("  B    |      A       | Comercial - Grandes Contas");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("C")){
-                    descTypeSubType.add("  B    |      C       | Comercial - Top Regional");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("D")){
-                    descTypeSubType.add("  B    |      D       | Comercial - Top Accounts Especiais");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("G")){
-                    descTypeSubType.add("  B    |      G       | Comercial - Associações e Cooperativa");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("H")){
-                    descTypeSubType.add("  B    |      H       | Comercial - Teste");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("L")){
-                    descTypeSubType.add("  B    |      L       | Comercial - Rastreamento e Telemetria");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("M")){
-                    descTypeSubType.add("  B    |      M       | Comercial - Pequena & Média Empresa (PME)");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("N")){
-                    descTypeSubType.add("  B    |      N       | Comercial - Top Accounts");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("S")){
-                    descTypeSubType.add("  B    |      S       | Comercial - AACE");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("T")){
-                    descTypeSubType.add("  B    |      T       | Comercial - Rastreamento e Telemetria DENATRAM");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("U")){
-                    descTypeSubType.add("  B    |      U       | Comercial - Produtor Rural");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("B") && subType.getSubTipo().equals("Z")){
-                    descTypeSubType.add("  B    |      Z       | Comercial - Street Seller");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("G") && subType.getSubTipo().equals("R")){
-                    descTypeSubType.add("  G    |      R       | Governo - Normal");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("B")){
-                    descTypeSubType.add("  I    |      B       | Individual - Combo Multi Claro");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("C")){
-                    descTypeSubType.add("  I    |      C       | Individual - Membro de Embaixada e Consulado");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("F")){
-                    descTypeSubType.add("  I    |      F       | Individual - Formador de Opnião");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("I")){
-                    descTypeSubType.add("  I    |      I       | Individual - Pré-Pago");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("J")){
-                    descTypeSubType.add("  I    |      J       | Individual - Grandes Clientes");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("N")){
-                    descTypeSubType.add("  I    |      N       | Individual - Índio");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("P")){
-                    descTypeSubType.add("  I    |      P       | Individual - Profissional Liberal");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("R")){
-                    descTypeSubType.add("  I    |      R       | Individual - Normal");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("T")){
-                    descTypeSubType.add("  I    |      T       | Individual - Triple A");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("W")){
-                    descTypeSubType.add("  I    |      W       | Individual - Claro Combo Fixo");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("Y")){
-                    descTypeSubType.add("  I    |      Y       | Individual - Associado");
-                    continue;
-                }
-                if(type.getTipo().equals("I") && subType.getSubTipo().equals("Z")){
-                    descTypeSubType.add("  I    |      Z       | Individual - Combo Multi Net");
-                    continue;
-                }
-                
-                if(type.getTipo().equals("P") && subType.getSubTipo().equals("K")){
-                    descTypeSubType.add("  P    |      K       | Pessoa Física - Empresa");
-                }
-                
-            }
-            
-        }
-        
-        
-        return descTypeSubType;
+        return CusttpModel.getDescricaoTipoSubtipo(tipo, subTipo);
     }
     
     
@@ -1164,6 +1117,44 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
       return false;   
         
+    }
+     
+       /**
+     * Recupera campos do formulário
+     * @return objeto do tipo <code>Fields</code> 
+     * @throws SQLException 
+     */
+    private Fields getFields() throws SQLException{
+        
+        Fields fields = new Fields();
+        
+        fields.setDlServiceCode(this.txtDlServiceCode.getText());
+        fields.setDescFuncional(this.txaDescricaoFuncional.getText());
+        fields.setDlUpdateStamp(this.txtDlUpdateStamp.getText());
+        fields.setOperatorID(this.txtOperatorID.getText());
+        fields.setOsDesc(this.txtDescricao.getText());
+        fields.setUserName(Usuario.getFullName(user).toString());
+        fields.setPrefixo(this.cmbPrefixo.getSelectedItem().toString());
+        fields.setSincronismo(this.cmbSincronismo.getSelectedItem().toString());
+        if(txtMantis.isVisible())
+            fields.setMantis(txtMantis.getText());
+        
+        return fields;
+        
+    }
+    
+   public void populaComboPrefixo(){
+        
+        List<String> listPrefixos = Prefixo.getPrefixos();
+        for(String prefixo: listPrefixos ){   
+             cmbPrefixo.addItem(prefixo);   
+        }
+    }
+    
+    public void inicializa(){
+        this.populaComboPrefixo();
+        this.lblMantis.setVisible(false);
+        this.txtMantis.setVisible(false);
     }
     
     

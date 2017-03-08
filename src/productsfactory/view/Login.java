@@ -38,7 +38,7 @@ public class Login extends javax.swing.JFrame implements KeyListener {
     public Login() {
         initComponents();
         this.tfUsuario.setText("daniel.assis");
-        this.pwfSenha.setText("daniel.assis");
+        this.pwfSenha.setText("Danyboy2006*");
         inicializa();
     }
 

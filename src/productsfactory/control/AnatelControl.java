@@ -81,7 +81,7 @@ public class AnatelControl {
                     rs = pstmt.executeQuery();
                     
                  if (!rs.next()) {
-                    inserts.append("INSERT INTO MTAREFWORK.BL7_OFFER_ANATEL (OFFER_CD, GEO_ZONE, SYS_CREATION_DATE, SYS_UPDATE_DATE, OPERATOR_ID, APPLICATION_ID, DL_SERVICE_CODE, DL_UPDATE_STAMP, ANATEL_CD) VALUES (").append(offers.get(i).getSocCD()).append(",'").append(states.get(j).getState()).append("',SYSDATE,NULL,").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(", '").append(anatelCodes.get(i).getCodigoAnatel()).append("');\n");
+                    inserts.append("INSERT INTO mtarefwork.bl7_offer_anatel (offer_cd, geo_zone, sys_creation_date, sys_update_date, operator_id, application_id, dl_service_code, dl_update_stamp, anatel_cd) VALUES (").append(offers.get(i).getSocCD()).append(",'").append(states.get(j).getState()).append("',SYSDATE,NULL,").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(", '").append(anatelCodes.get(i).getCodigoAnatel()).append("');\n");
                     countQtdeInserts++;
                     countQtdeInsertsTotal++;
                 }
@@ -132,7 +132,7 @@ public class AnatelControl {
                 delete.append("--Delete para a oferta ").append(offers.get(i).getSocCD()).append(" - ").append(offers.get(i).getSocName()).append("\n");
 
                 for (int j = 0; j < states.size(); j++) {
-                        delete.append("DELETE FROM MTAREFWORK.BL7_OFFER_ANATEL WHERE OFFER_CD = ").append(offers.get(i).getSocCD()).append(" AND GEO_ZONE = '").append(states.get(j).getState()).append("' AND ANATEL_CD = '").append(anatelCodes.get(i).getCodigoAnatel()).append("';\n");
+                        delete.append("DELETE FROM mtarefwork.bl7_offer_anatel WHERE offer_cd = ").append(offers.get(i).getSocCD()).append(" AND geo_zone = '").append(states.get(j).getState()).append("' AND anatel_cd = '").append(anatelCodes.get(i).getCodigoAnatel()).append("';\n");
                         System.out.println("DELETE FROM MTAREFWORK.BL7_OFFER_ANATEL WHERE SOC_CD = '" + offers.get(i).getSocCD() + "' AND GEO_ZONE = '" + states.get(j).getState() + "';");
 
                         countQtdeDelets++;
@@ -188,7 +188,7 @@ public class AnatelControl {
         select.append("SELECT \n"
                 + "  anatel.* \n"
                 + "FROM \n"
-                + "   BL7_OFFER_ANATEL anatel\n"
+                + "   bl7_offer_anatel anatel\n"
                 + "WHERE \n"
                 + "    anatel.offer_cd \n"
                 + "IN \n  (\n");
@@ -311,7 +311,7 @@ public class AnatelControl {
         select.append("SELECT \n"
                 + "  anatel.* \n"
                 + "FROM \n"
-                + "   BL7_OFFER_ANATEL anatel\n"
+                + "   bl7_offer_anatel anatel\n"
                 + "WHERE \n"
                 + "    anatel.offer_cd \n"
                 + "IN \n  (\n");

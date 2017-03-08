@@ -45,27 +45,27 @@ public class PerfilControl {
 
             for (int i = 0; i < perfil.size(); i++) {
 
-                pstmt = con.prepareStatement(" SELECT sph_profile_id FROM mtaobjp.vw_security_profile_header@bcv_fm WHERE sph_profile_id = (?)");
+                pstmt = con.prepareStatement("SELECT soc_channel_code FROM mtaappc.csm_offer_sale_channel@bcv_fm WHERE soc_channel_code = (?) GROUP BY soc_channel_code");
                 pstmt.setString(1, perfil.get(i).replace("\r", ""));
 
                 rs = pstmt.executeQuery();
+                PerfilModel perfilObj = new PerfilModel();
+                
+                if (rs.next()) {
 
-                while (rs.next()) {
+                   
 
-                    PerfilModel perfilObj = new PerfilModel();
+                    if (rs.getString("soc_channel_code") != null) {
 
-                    if (rs.getString("sph_profile_id") != null) {
-
-                        perfilObj.setPerfil(rs.getString("sph_profile_id"));
+                        perfilObj.setPerfil(rs.getString("soc_channel_code"));
                         perfilObj.setStatusPerfil("OK!");
-                    } else {
+                    } 
+                }else {
                         perfilObj.setPerfil(perfil.get(i));
                         perfilObj.setStatusPerfil("NOK!");
                     }
 
                     listPerfis.add(perfilObj);
-
-                }
 
             }
 
@@ -116,7 +116,7 @@ public class PerfilControl {
                     rs = pstmt.executeQuery();
 
                     if (!rs.next()) {
-                        inserts.append("INSERT INTO MTAREFWORK.CSM_OFFER_SALE_CHANNEL (SOC_CD, SOC_CHANNEL_CODE, SYS_CREATION_DATE, SYS_UPDATE_DATE, OPERATOR_ID, APPLICATION_ID, DL_SERVICE_CODE, DL_UPDATE_STAMP, UPDATEABLE_OFFER_IND, UPDATEABLE_PARAM_IND) VALUES ('").append(offers.get(i).getSocCD()).append("','").append(perfis.get(j).getPerfil()).append("',SYSDATE,NULL, ").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(",NULL, NULL);\n");
+                        inserts.append("INSERT INTO mtarefwork.csm_offer_sale_channel (soc_cd, soc_channel_code, sys_creation_date, sys_update_date, operator_id, application_id, dl_service_code, dl_update_stamp, updateable_offer_ind, updateable_param_ind) VALUES ('").append(offers.get(i).getSocCD()).append("','").append(perfis.get(j).getPerfil()).append("',SYSDATE,NULL, ").append(fields.getOperatorID()).append(",'DPPC','").append(fields.getDlServiceCode()).append("',").append(fields.getDlUpdateStamp()).append(",NULL, NULL);\n");
                         
                         countQtdeInserts++;
                         countQtdeInsertsTotal++;
@@ -176,7 +176,7 @@ public class PerfilControl {
                     rs = pstmt.executeQuery();
 
                     if (!rs.next()) {
-                        delete.append("DELETE FROM MTAREFWORK.CSM_OFFER_SALE_CHANNEL WHERE SOC_CD = '").append(offers.get(i).getSocCD()).append("' AND SOC_CHANNEL_CODE = '").append(perfis.get(j).getPerfil()).append("';\n");
+                        delete.append("DELETE FROM mtarefwork.csm_offer_sale_channel WHERE soc_cd = '").append(offers.get(i).getSocCD()).append("' AND soc_channel_code = '").append(perfis.get(j).getPerfil()).append("';\n");
 
                         countQtdeDelets++;
                         countQtdeDeletsTotal++;

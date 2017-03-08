@@ -598,6 +598,11 @@ private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         List<Offers> offers = Verifyer.verifyOfferExists(ofertas);
                         for (Offers oferta : offers) {
                             this.PrintLog(oferta.getSocCD() + " - " + oferta.getSocName() + " - " + oferta.getStatusOffer());
+                              if(oferta.getStatusOffer().contains("NOK!")){
+                                    this.PrintLog("Oferta \""+oferta.getSocCD() +"\" não encontrada, revise as ofertas, processo encerrado");
+                                    JOptionPane.showMessageDialog(this, "Oferta \""+oferta.getSocCD() +"\" não encontrada, revise as ofertas, processo encerrado!", "Atenção!", 2);
+                                    return;
+                                }
                         }
                         this.PrintLog("\n");
                         this.PrintLog("===================================");
